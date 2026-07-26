@@ -1,0 +1,170 @@
+{
+  "_설명": "집밥 소재 은행 (승인된 스타일 v2 — STYLE_GUIDE.md 기준). body=본문([광고] 태그는 자동 삽입), recipe=답글, ingredients=쿠팡 검색어, used는 프로그램이 기록.",
+  "menus": [
+    {
+      "id": "m01", "name": "된장찌개 만능 베이스",
+      "body": "된장찌개 먹고 싶을 때마다\n멸치 육수부터 내는 사람 아직 있어?\n\n자취 7년 하면서 정착한 방법인데\n주말에 만능 베이스 한 통 만들어두면\n평일엔 물 붓고 재료만 넣으면 끝\n\n퇴근하고 10분 컷. 비율 답글에 👇",
+      "recipe": "만능 된장 베이스 (일주일치)\n\n된장 6 : 고추장 1 : 다진마늘 1\n+ 멸치가루 2스푼, 설탕 반스푼\n\n섞어서 밀폐용기에 냉장 (2주 감)\n끓일 땐 물 500ml에 베이스 2스푼 + 두부·호박·양파\n\n★ 멸치가루가 핵심 — 육수 안 내도 깊은 맛\n★ 찌개 말고 쌈장에 섞어도 됨",
+      "ingredients": [
+        {"label": "멸치가루", "search": "국물용 멸치가루"},
+        {"label": "밀폐용기", "search": "유리 밀폐용기 500ml"}
+      ],
+      "image_prompt": "Korean doenjang jjigae bubbling in a small earthen pot, tofu and zucchini visible, steam rising, cozy home kitchen, warm light, top-down phone photo style, realistic",
+      "used": false
+    },
+    {
+      "id": "m02", "name": "김치볶음밥 순서",
+      "body": "김치볶음밥이 집에서 하면\n식당 맛 안 나는 이유 알려줄까\n\n재료 문제 아니고 순서 문제야\n밥이랑 김치를 같이 볶으면 무조건 실패\n\n순서만 바꾸면 같은 재료로 식당 맛 남\n답글에 정리해둠 👇",
+      "recipe": "식당 맛 김치볶음밥 순서\n\n1. 식용유+참기름 반반, 김치만 3분 볶기\n2. 설탕 반스푼 — 신맛 잡는 비밀\n3. 밥 넣고 센 불 2분, 간장은 팬 가장자리에 반 바퀴\n4. 불 끄고 참기름·깨\n\n★ 계란후라이는 팬 남은 열로 하면 설거지 하나 줄어\n★ 김치가 신 김치일수록 설탕이 일함",
+      "ingredients": [
+        {"label": "참기름", "search": "국산 참기름"},
+        {"label": "볶음팬", "search": "웍 볶음팬 28cm"}
+      ],
+      "image_prompt": "Korean kimchi fried rice on a white plate with a sunny-side-up egg on top, sesame seeds, steam, home kitchen table, phone photo style, warm tones, realistic",
+      "used": false
+    },
+    {
+      "id": "m03", "name": "제육볶음 만능 비율",
+      "body": "제육 레시피 검색하면\n블로그마다 다 달라서 더 헷갈리지\n\n외울 건 비율 딱 하나야\n고추장 2 : 간장 1 : 설탕 1 : 마늘 1\n\n이 비율이면 뭘 더 넣든 실패가 안 나\n디테일 답글에 👇",
+      "recipe": "실패 없는 제육 공식\n\n앞다리살 400g 기준\n양념 = 고추장2 : 간장1 : 설탕1 : 다진마늘1, 30분 재우기\n\n양파 반 개는 채 썰고, 반 개는 갈아서 양념에\n(갈아 넣으면 고기가 부드러워짐)\n\n센 불에 고기 먼저 → 거의 익으면 채소\n\n★ 마지막에 후추 팍팍 — 잡내 정리 끝",
+      "ingredients": [
+        {"label": "고추장", "search": "태양초 고추장 1kg"},
+        {"label": "위생장갑", "search": "위생장갑 100매"}
+      ],
+      "image_prompt": "Korean spicy stir-fried pork jeyuk bokkeum in a black pan, glossy red sauce, onions and scallions, steam, realistic home cooking phone photo, warm light",
+      "used": false
+    },
+    {
+      "id": "m04", "name": "전자레인지 계란찜",
+      "body": "뚝배기 없다고 계란찜 포기했었는데\n전자레인지로 4분이면 되는 거였음\n\n그것도 식당에서 나오는\n그 몽글몽글한 상태로\n\n내열그릇 하나만 있으면 돼\n방법 답글에 👇",
+      "recipe": "전자레인지 계란찜 (4분)\n\n계란 3개 + 물 150ml + 소금 반 티스푼 잘 풀기\n체에 한 번 거르기 ← 몽글몽글의 90%\n내열그릇에 랩 씌우고 젓가락으로 구멍 2개\n700W 4분 → 그대로 1분 뜸\n\n★ 새우젓 반 티스푼 넣으면 그게 식당 맛\n★ 우유로 바꾸면 호텔 조식 버전",
+      "ingredients": [
+        {"label": "내열 그릇", "search": "전자레인지 내열유리 그릇"},
+        {"label": "새우젓", "search": "국산 새우젓"}
+      ],
+      "image_prompt": "Fluffy Korean steamed egg gyeranjjim in a glass bowl, wobbly texture, chopped scallion on top, steam, home kitchen, realistic phone photo",
+      "used": false
+    },
+    {
+      "id": "m05", "name": "국 얼리기 리스트",
+      "body": "국 한 번 끓이면\n4일 내내 같은 국 먹는 사람 손\n\n1인분씩 얼리면 되는데\n문제는 얼려도 되는 국이 따로 있다는 거\n\n두부 든 국 얼렸다가 스펀지 씹어본 사람은 알잖아\n되는 국 안 되는 국 답글에 정리 👇",
+      "recipe": "얼려도 되는 국 / 안 되는 국\n\n○ 미역국, 곰탕, 된장국, 육개장 — 냉동 OK\n× 두부 든 국(스펀지됨), 감자국(푸석), 계란국(분리)\n\n지퍼백에 납작하게 눕혀 얼리면 해동 3분\n\n★ 얼리기 전 한 김 식히기 — 필수\n★ 날짜 매직으로 안 쓰면 냉동실 미스터리 됨",
+      "ingredients": [
+        {"label": "냉동 지퍼백", "search": "냉동용 지퍼백 대형"},
+        {"label": "소분 용기", "search": "냉동밥 소분용기"}
+      ],
+      "image_prompt": "Meal prep freezer bags with Korean soup portions laid flat, neatly labeled, clean kitchen counter, organized fridge prep, realistic phone photo",
+      "used": false
+    },
+    {
+      "id": "m06", "name": "라면 500원 업그레이드",
+      "body": "라면에 계란 넣는 타이밍으로\n싸우는 사람들 많은데\n\n솔직히 진짜 게임체인저는\n계란이 아니야\n\n500원짜리 재료 하나로\n라면 급이 바뀜. 답글 봐 👇",
+      "recipe": "라면 급 올리는 500원 재료\n\n1위 대파 한 줌 — 기름에 먼저 볶고 물 붓기 (파기름)\n2위 콩나물 한 줌 — 그대로 해장 국물 됨\n3위 냉동만두 2개 — 만두라면은 못 참지\n\n순서: 파기름 → 물 → 스프 → 면 → 토핑\n\n★ 파기름 30초가 라면수프 개발자들이 숨긴 맛",
+      "ingredients": [
+        {"label": "냉동 만두", "search": "고향만두 냉동"},
+        {"label": "라면 냄비", "search": "양은냄비 라면"}
+      ],
+      "image_prompt": "Korean ramyeon in a golden aluminum pot with scallions and a soft egg, chopsticks lifting noodles, steam, late night home vibe, realistic phone photo",
+      "used": false
+    },
+    {
+      "id": "m07", "name": "냉장고 털이 볶음우동",
+      "body": "냉장고에 반 개씩 남은 채소들\n버리는 게 일이지\n\n금요일마다 다 털어서\n볶음우동 하나로 끝내는데\n\n뭘 넣든 맛이 나는 건\n소스 비율 때문이야. 답글에 👇",
+      "recipe": "냉털 볶음우동 만능소스\n\n간장 2 : 굴소스 1 : 설탕 0.5 : 물 2\n\n남은 채소 아무거나 센 불 2분\n우동면 넣고 소스 붓고\n물기 날아갈 때까지 볶으면 끝\n\n★ 가쓰오부시 한 줌 올리면 가게에서 파는 맛\n★ 채소 대신 남은 삼겹살도 됨",
+      "ingredients": [
+        {"label": "굴소스", "search": "이금기 굴소스"},
+        {"label": "우동면", "search": "냉동 우동면"}
+      ],
+      "image_prompt": "Stir-fried udon noodles with assorted vegetables in a wok, glossy sauce, bonito flakes on top, home kitchen, realistic phone photo, warm light",
+      "used": false
+    },
+    {
+      "id": "m08", "name": "닭가슴살 촉촉하게",
+      "body": "닭가슴살이 퍽퍽한 건\n닭 잘못이 아니라 삶는 법 잘못이야\n\n다이어트 3년차가 정착한 방법인데\n바꿀 건 딱 하나\n\n'끓는 물에 넣고 불을 끈다'\n시간까지 답글에 👇",
+      "recipe": "촉촉 닭가슴살 (실패 없음)\n\n물 팔팔 끓이고 소금 1스푼\n닭가슴살 넣자마자 불 끄고 뚜껑\n그대로 15분 방치 (두꺼우면 20분)\n꺼내서 결 반대로 찢기\n\n★ 여열로 익혀서 수분이 안 빠져나감 — 이게 전부\n★ 월계수잎 한 장 있으면 잡내까지 끝",
+      "ingredients": [
+        {"label": "닭가슴살", "search": "냉동 닭가슴살 1kg"},
+        {"label": "월계수잎", "search": "월계수잎"}
+      ],
+      "image_prompt": "Juicy sliced chicken breast on a cutting board, moist texture visible, simple home plating with salad, realistic phone photo, natural light",
+      "used": false
+    },
+    {
+      "id": "m09", "name": "감자채볶음 안 부서지게",
+      "body": "감자채볶음 할 때마다\n반은 부서져서 떡 되는 사람\n\n손 문제 아니고 전분 문제야\n\n찬물에 5분 담그는 것만으로\n식당 반찬처럼 낱개로 살아있음\n순서 답글에 👇",
+      "recipe": "안 부서지는 감자채볶음\n\n감자 채 썰어 찬물 5분 (전분 빼기)\n체에 밭쳐 물기 완전히 제거\n중불, 기름 넉넉히\n소금은 마지막에\n\n★ 뒤집개로 뒤적이지 말고 젓가락으로 살살\n★ 물기 남으면 볶는 게 아니라 찌는 거임",
+      "ingredients": [
+        {"label": "채칼", "search": "감자 채칼"},
+        {"label": "감자", "search": "국산 감자 3kg"}
+      ],
+      "image_prompt": "Korean stir-fried potato strips gamja-chae-bokkeum on a small white side dish plate, glossy and intact strips, sesame seeds, realistic phone photo",
+      "used": false
+    },
+    {
+      "id": "m10", "name": "카레 6인분 3일 코스",
+      "body": "카레는 끓인 날보다\n다음 날이 더 맛있는 거 알지\n\n그래서 일요일에 아예 6인분 끓임\n평일 3일이 해결되는데\n\n포인트는 3일 내내 다른 음식처럼 먹는 거야\n변신 코스 답글에 👇",
+      "recipe": "카레 6인분 → 3일 코스\n\n1일차 그냥 카레라이스\n2일차 물 붓고 우동면 → 카레우동\n3일차 밥+치즈 넣고 볶기 → 카레치즈볶음밥\n\n★ 고형 반 + 가루 반 섞으면 농도가 딱 맞음\n★ 사과 반 개 갈아넣기 — 단맛이 자연스러워짐",
+      "ingredients": [
+        {"label": "고형 카레", "search": "바몬드 카레 고형"},
+        {"label": "대용량 냄비", "search": "곰솥 냄비 24cm"}
+      ],
+      "image_prompt": "Big pot of Japanese-style curry simmering with carrots and potatoes, ladle scooping, home kitchen stove, steam, realistic phone photo, cozy",
+      "used": false
+    },
+    {
+      "id": "m11", "name": "두부 한 모 3일 쓰기",
+      "body": "두부 한 모 사면\n반은 냉장고에서 상해서 버리지\n\n월화수 반찬이 두부 하나로 끝나는\n루틴을 정리해봤어\n\n구이 → 조림 → 찌개 순서가 핵심이야\n답글에 👇",
+      "recipe": "두부 한 모 풀코스\n\n월 [구이] 1cm 썰어 키친타월로 꾹 → 노릇하게 → 간장2+참기름1+파\n화 [조림] 남은 구이에 물 반 컵+간장2+고춧가루1+설탕0.5 졸이기\n수 [찌개] 자투리는 된장찌개로\n\n남은 두부 보관: 물에 잠기게 담가 냉장, 물은 매일 갈기\n\n★ 구이의 90%는 물기 제거 — 눌러 짜는 게 아니라 눌러 두기",
+      "ingredients": [
+        {"label": "키친타월", "search": "키친타월 대용량"},
+        {"label": "양념통", "search": "소스 양념통 세트"}
+      ],
+      "image_prompt": "Golden pan-fried tofu slices with Korean soy dipping sauce, scallions, banchan side dishes around, realistic phone photo, home table",
+      "used": false
+    },
+    {
+      "id": "m12", "name": "참치 미역국",
+      "body": "생일인데 소고기가 없다\n\n이럴 때 참치캔 하나면\n미역국이 15분 만에 되는데\n\n소고기 버전보다 빠르고\n맛은 안 밀린다는 게 포인트\n방법 답글에 👇",
+      "recipe": "참치 미역국 (15분)\n\n불린 미역 참기름에 2분 볶기\n물 800ml + 국간장 1.5스푼\n끓으면 참치캔(기름 빼고) 투하\n10분 더 끓이면 끝\n\n★ 참치는 오래 끓이면 퍽퍽해짐 — 꼭 마지막에\n★ 들기름으로 볶으면 고소함이 두 배",
+      "ingredients": [
+        {"label": "참치캔", "search": "동원참치 살코기"},
+        {"label": "건미역", "search": "완도 건미역"}
+      ],
+      "image_prompt": "Korean seaweed soup miyeokguk in a stone bowl with rice, steam rising, simple home breakfast setting, realistic phone photo",
+      "used": false
+    },
+    {
+      "id": "m13", "name": "에어프라이어 냉동식품 시간표",
+      "body": "봉지 뒷면 시간 믿고 돌렸다가\n겉은 타고 속은 얼음인 만두 먹어본 사람 손\n\n에어프라이어 3년 쓰면서 정리한\n냉동식품 진짜 시간표야\n\n만두, 치킨, 감튀, 식은 피자까지\n저장해두면 평생 씀. 답글에 👇",
+      "recipe": "에프 실전 시간표 (180도 기준)\n\n냉동만두 12분 — 5분에 뒤집기, 기름 살짝\n냉동치킨 15분 — 안 뒤집으면 한쪽만 탐\n냉동감튀 18분 — 중간에 바스켓 흔들기\n식은 피자 6분 — 배달 직후 맛 부활\n\n★ 다들 건너뛰는 예열 3분이 바삭함의 절반\n★ 종이호일 깔면 설거지 0",
+      "ingredients": [
+        {"label": "기름 스프레이", "search": "오일 스프레이 분사기"},
+        {"label": "에어프라이어 종이호일", "search": "에어프라이어 종이호일"}
+      ],
+      "image_prompt": "Air fryer basket with golden crispy dumplings, kitchen counter, steam, realistic phone photo, appetizing close-up",
+      "used": false
+    },
+    {
+      "id": "m14", "name": "두부면 비빔국수",
+      "body": "다이어트 중에 비빔국수 당길 때\n곤약면 먹어봤으면 알잖아\n그 고무줄 씹는 느낌\n\n두부면으로 갈아타고 해결됐어\n삶을 필요도 없어서 5분 컷\n\n양념 비율 답글에 👇",
+      "recipe": "두부면 비빔국수 (5분)\n\n두부면 찬물에 헹궈 물기 빼기 (삶기 없음)\n양념 = 고추장1 : 식초1 : 올리고당1 : 참기름0.5\n오이채 + 삶은계란 올리면 끝\n\n★ 일반 비빔국수 양념 그대로 쓰면 됨\n★ 열량은 절반, 단백질은 두 배",
+      "ingredients": [
+        {"label": "두부면", "search": "포두부 두부면"},
+        {"label": "올리고당", "search": "올리고당 700g"}
+      ],
+      "image_prompt": "Korean spicy bibim noodles made with tofu noodles, cucumber strips and boiled egg on top, red sauce, fresh look, realistic phone photo",
+      "used": false
+    },
+    {
+      "id": "m15", "name": "원팬 파스타",
+      "body": "파스타 한 번 하면\n냄비, 팬, 접시 설거지 3종 세트지\n\n면을 안 삶으면 팬 하나로 끝나는데\n물 양만 알면 돼\n\n면이 물을 먹으면서 그대로 소스가 됨\n비율 답글에 👇",
+      "recipe": "원팬 토마토 파스타\n\n팬에 마늘·베이컨 볶기\n물 400ml + 토마토소스 1컵 + 마른 면 그대로 투하\n중불 9분, 가끔 저어주기\n\n물이 줄면서 소스 농도가 저절로 맞음\n\n★ 스파게티면 반 갈라 넣으면 팬에 딱 들어감\n★ 마지막에 치즈 한 장 — 크림파스타 안 부러움",
+      "ingredients": [
+        {"label": "토마토 소스", "search": "폰타나 토마토 파스타소스"},
+        {"label": "깊은 팬", "search": "깊은 프라이팬 26cm"}
+      ],
+      "image_prompt": "One-pan tomato pasta in a deep skillet, cheese melting on top, fork twirling noodles, home kitchen, realistic phone photo, warm light",
+      "used": false
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "_설명": "스레드 집밥 공장 설정. 비밀값은 .env에만 (여기 넣지 말 것).",
+  "persona": {
+    "tone": "친근한 반말, 짧은 문장, 과장 없이. 이모지는 문단당 최대 1개",
+    "handle_note": "보유 스레드 계정 사용"
+  },
+  "posting": {
+    "per_day": 1,
+    "reply_delay_seconds": 45,
+    "_주의": "스팸 금지 원칙 — 하루 1~2개까지만. 250/일 API 한도와 무관하게 낮게 유지"
+  },
+  "auto_post": true,
+  "_auto_설명": "true=매일 자동 게시(사용자 승인 2026-07-26, GitHub Actions 11:20 KST). false로 바꾸면 make_draft→post_approved 승인형으로 복귀.",
+  "disclosure": "본 게시물은 쿠팡 파트너스 활동으로 수수료를 제공받습니다.",
+  "ad_tag": "[광고]",
+  "_고지_설명": "공정위 2026 기준: 본문 상단 표기 의무(댓글만 표기 금지), 확정형 문구만 인정. ad_tag는 본문 첫 줄에 자동 삽입됨.",
+  "image_base_url": "https://raw.githubusercontent.com/hyjh1006-afk/threads-kitchen/main/images",
+  "_image_설명": "이미지 공개 호스팅 주소. 저장소 생성 후 유효해짐. 비우면 텍스트만 게시.",
+  "coupang_subid": "threads_kitchen"
+}

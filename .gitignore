@@ -1,0 +1,6 @@
+.env
+coupang_keys.txt
+state/
+drafts/
+__pycache__/
+*.pyc

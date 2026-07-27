@@ -64,19 +64,27 @@ def main():
         print("계속하려면 초안 JSON에서 reply_text를 수정하거나 파트너스 키를 설정 후 make_draft를 다시 실행하세요.")
         return
 
-    print("1/2 본문 게시 중…")
-    body_id = threads_client.post(draft["body_text"], image_url=draft.get("image_url"))
+    print("1/3 본문 게시 중…")
+    urls = draft.get("image_urls") or ([draft["image_url"]] if draft.get("image_url") else None)
+    body_id = threads_client.post(draft["body_text"], image_urls=urls)
     print("   게시됨:", body_id)
     delay = int(CONFIG["posting"].get("reply_delay_seconds", 45))
     print(f"   {delay}초 대기 후 답글…")
     time.sleep(delay)
-    print("2/2 답글(레시피+링크) 게시 중…")
+    print("2/3 답글1(레시피) 게시 중…")
     reply_id = threads_client.post(draft["reply_text"], reply_to_id=body_id)
     print("   게시됨:", reply_id)
+    links_id = None
+    if draft.get("links_text"):
+        time.sleep(delay)
+        print("3/3 답글2(재료 링크) 게시 중…")
+        links_id = threads_client.post(draft["links_text"], reply_to_id=reply_id)
+        print("   게시됨:", links_id)
 
     draft["status"] = "POSTED"
     draft["body_post_id"] = body_id
     draft["reply_post_id"] = reply_id
+    draft["links_post_id"] = links_id
     draft_path.write_text(json.dumps(draft, ensure_ascii=False, indent=2), encoding="utf-8")
     mark_used(draft["menu_id"])
     record({"date": args.date, "menu": draft["menu_name"], "body_id": body_id, "reply_id": reply_id})

@@ -1,5 +1,5 @@
 {
-  "_설명": "집밥 소재 은행 (승인된 스타일 v2 — STYLE_GUIDE.md 기준). body=본문([광고] 태그는 자동 삽입), recipe=답글, ingredients=쿠팡 검색어, used는 프로그램이 기록.",
+  "_설명": "집밥 소재 은행 v3 (2026-07-27 개편: 신박·건강 컨셉, 본문 길게, 레시피 상세). body=본문, recipe=답글1(레시피), ingredients=답글2(쿠팡 링크), used는 프로그램이 기록.",
   "menus": [
     {
       "id": "m01",
@@ -39,236 +39,236 @@
     },
     {
       "id": "m03",
-      "name": "제육볶음 만능 비율",
-      "body": "제육 레시피 검색하면\n블로그마다 다 달라서 더 헷갈리지\n\n외울 건 비율 딱 하나야\n고추장 2 : 간장 1 : 설탕 1 : 마늘 1\n\n이 비율이면 뭘 더 넣든 실패가 안 나\n디테일 답글에 👇",
-      "recipe": "실패 없는 제육 공식\n\n앞다리살 400g 기준\n양념 = 고추장2 : 간장1 : 설탕1 : 다진마늘1, 30분 재우기\n\n양파 반 개는 채 썰고, 반 개는 갈아서 양념에\n(갈아 넣으면 고기가 부드러워짐)\n\n센 불에 고기 먼저 → 거의 익으면 채소\n\n★ 마지막에 후추 팍팍 — 잡내 정리 끝",
+      "name": "오트밀 김치전",
+      "body": "김치전 좋아하는데 밀가루 때문에 참는 사람 있어?\n\n나 다이어트하면서 김치전 끊었다가\n오트밀 반죽으로 하는 법 알고 나서 다시 먹기 시작함\n\n부침가루 없이도 바삭하게 되고\n오트밀이 김치국물을 빨아들여서\n오히려 간이 속까지 배어 있어\n\n밀가루전 대비 칼로리는 거의 반인데\n맛 차이는 솔직히 모르겠음\n\n반죽 비율이랑 바삭해지는 굽기 순서\n답글에 다 적어둠 👇",
+      "recipe": "오트밀 김치전 (2장)\n\n[재료]\n오트밀 5스푼 → 믹서 10초 갈아서 가루로\n신김치 한 줌(150g) + 김치국물 3스푼\n계란 1개, 물 2스푼\n\n[순서]\n1. 김치는 가위로 잘게, 국물까지 볼에\n2. 오트밀가루+계란+물 섞고 2분 불리기 ★불려야 안 부서짐\n3. 중불 팬에 기름 1스푼, 반죽 얇게 펴기\n4. 가장자리 갈색 되면 뒤집고 뒤집개로 꾹꾹 — 앞뒤 3분씩\n\n★ 눌러줄 때 수분이 빠지면서 바삭해짐\n★ 신김치일수록 맛있음, 덜 시면 식초 반 스푼",
       "ingredients": [
         {
-          "label": "고추장",
-          "search": "태양초 고추장 1kg"
+          "label": "오트밀",
+          "search": "퀘이커 오트밀 1kg"
         },
         {
-          "label": "위생장갑",
-          "search": "위생장갑 100매"
+          "label": "미니믹서기",
+          "search": "미니 믹서기"
         }
       ],
-      "image_prompt": "Korean spicy stir-fried pork jeyuk bokkeum in a black pan, glossy red sauce, onions and scallions, steam, realistic home cooking phone photo, warm light",
+      "image_prompt": "Crispy Korean kimchi pancake kimchijeon with plenty of visible red chopped kimchi pieces mixed in the batter, reddish orange golden crispy edges, one slice lifted showing texture, home kitchen table, realistic smartphone food photo, warm natural light",
       "used": false
     },
     {
       "id": "m04",
-      "name": "전자레인지 계란찜",
-      "body": "뚝배기 없다고 계란찜 포기했었는데\n전자레인지로 4분이면 되는 거였음\n\n그것도 식당에서 나오는\n그 몽글몽글한 상태로\n\n내열그릇 하나만 있으면 돼\n방법 답글에 👇",
-      "recipe": "전자레인지 계란찜 (4분)\n\n계란 3개 + 물 150ml + 소금 반 티스푼 잘 풀기\n체에 한 번 거르기 ← 몽글몽글의 90%\n내열그릇에 랩 씌우고 젓가락으로 구멍 2개\n700W 4분 → 그대로 1분 뜸\n\n★ 새우젓 반 티스푼 넣으면 그게 식당 맛\n★ 우유로 바꾸면 호텔 조식 버전",
+      "name": "두유 로제 곤약떡볶이",
+      "body": "떡볶이 먹고 싶은데 살은 찌기 싫은 날\n곤약떡 + 무가당 두유 조합 아는 사람?\n\n그냥 곤약떡볶이는 솔직히 맛없잖아\n특유의 꼬들한 식감은 좋은데 소스가 겉돌아서\n\n근데 두유 넣고 로제로 만들면 얘기가 달라짐\n두유가 곤약 냄새를 잡고 소스가 코팅이 돼서\n일반 떡볶이 없이도 만족스러워\n\n한 그릇 다 먹어도 300kcal대\n비율 답글에 👇",
+      "recipe": "두유 로제 곤약떡볶이 (1인분)\n\n[재료]\n곤약떡 200g, 무가당 두유 190ml 1팩\n고추장 1스푼, 고춧가루 반스푼, 간장 반스푼\n다진마늘 반스푼, 양파 4분의 1개\n\n[순서]\n1. 곤약떡은 끓는 물에 2분 데치기 ★냄새 제거 필수\n2. 팬에 양파·마늘 볶다가 고추장·고춧가루 넣고 30초\n3. 두유 붓고 중불로 3분 졸이기\n4. 곤약떡 넣고 소스가 걸쭉해질 때까지 2분\n\n★ 계란 하나 삶아 올리면 단백질 보충\n★ 매운 거 좋으면 청양고추, 페페론치노도 잘 어울림",
       "ingredients": [
         {
-          "label": "내열 그릇",
-          "search": "전자레인지 내열유리 그릇"
+          "label": "곤약떡",
+          "search": "곤약 떡볶이떡"
         },
         {
-          "label": "새우젓",
-          "search": "국산 새우젓"
+          "label": "무가당두유",
+          "search": "무가당 두유 190ml"
         }
       ],
-      "image_prompt": "Fluffy Korean steamed egg gyeranjjim in a glass bowl, wobbly texture, chopped scallion on top, steam, home kitchen, realistic phone photo",
+      "image_prompt": "Korean rose tteokbokki made with konjac rice cakes in creamy pink soy milk sauce, garnished with boiled egg half and scallions, cozy bowl, realistic smartphone food photo, warm light",
       "used": false
     },
     {
       "id": "m05",
-      "name": "국 얼리기 리스트",
-      "body": "국 한 번 끓이면\n4일 내내 같은 국 먹는 사람 손\n\n1인분씩 얼리면 되는데\n문제는 얼려도 되는 국이 따로 있다는 거\n\n두부 든 국 얼렸다가 스펀지 씹어본 사람은 알잖아\n되는 국 안 되는 국 답글에 정리 👇",
-      "recipe": "얼려도 되는 국 / 안 되는 국\n\n○ 미역국, 곰탕, 된장국, 육개장 — 냉동 OK\n× 두부 든 국(스펀지됨), 감자국(푸석), 계란국(분리)\n\n지퍼백에 납작하게 눕혀 얼리면 해동 3분\n\n★ 얼리기 전 한 김 식히기 — 필수\n★ 날짜 매직으로 안 쓰면 냉동실 미스터리 됨",
+      "name": "병아리콩 토마토 카레",
+      "body": "고기 없는 카레는 심심하다는 편견\n병아리콩이 깨준다\n\n인도식 커리 집에서 먹고 반해서\n따라해봤는데 생각보다 너무 쉬웠음\n\n포인트는 고기 대신 병아리콩 통조림\n포슬포슬한 식감이 씹는 맛을 살리고\n단백질이라 한 그릇으로도 든든해\n\n토마토홀이랑 같이 끓이면\n시판 카레인데 인도 커리 맛이 남\n\n15분 컷 레시피 답글에 👇",
+      "recipe": "병아리콩 토마토 카레 (2~3인분)\n\n[재료]\n병아리콩 통조림 400g 1캔 (물 버리기)\n토마토홀 1캔, 양파 1개, 다진마늘 1스푼\n카레가루 3스푼, 물 200ml\n\n[순서]\n1. 양파 채 썰어 중불 5분, 갈색 나게 볶기 ★단맛의 핵심\n2. 마늘 넣고 30초, 카레가루 넣고 10초 볶아 향 내기\n3. 토마토홀 으깨며 넣고 물 붓고 5분\n4. 병아리콩 넣고 3분 더, 소금으로 간\n\n★ 밥 대신 구운 식빵 찍어 먹어도 좋음\n★ 마지막에 요거트 한 스푼 올리면 인도 감성 완성",
       "ingredients": [
         {
-          "label": "냉동 지퍼백",
-          "search": "냉동용 지퍼백 대형"
+          "label": "병아리콩",
+          "search": "병아리콩 통조림 400g"
         },
         {
-          "label": "소분 용기",
-          "search": "냉동밥 소분용기"
+          "label": "토마토홀",
+          "search": "토마토홀 통조림"
         }
       ],
-      "image_prompt": "Meal prep freezer bags with Korean soup portions laid flat, neatly labeled, clean kitchen counter, organized fridge prep, realistic phone photo",
+      "image_prompt": "Chickpea tomato curry in a bowl over rice, rich orange-red sauce, cilantro garnish, spoon scooping, rustic home table, realistic smartphone food photo, warm appetizing light",
       "used": false
     },
     {
       "id": "m06",
-      "name": "라면 500원 업그레이드",
-      "body": "라면에 계란 넣는 타이밍으로\n싸우는 사람들 많은데\n\n솔직히 진짜 게임체인저는\n계란이 아니야\n\n500원짜리 재료 하나로\n라면 급이 바뀜. 답글 봐 👇",
-      "recipe": "라면 급 올리는 500원 재료\n\n1위 대파 한 줌 — 기름에 먼저 볶고 물 붓기 (파기름)\n2위 콩나물 한 줌 — 그대로 해장 국물 됨\n3위 냉동만두 2개 — 만두라면은 못 참지\n\n순서: 파기름 → 물 → 스프 → 면 → 토핑\n\n★ 파기름 30초가 라면수프 개발자들이 숨긴 맛",
+      "name": "그릭요거트 콥샐러드 랩",
+      "body": "다이어트 한다고 샐러드만 먹으면\n2시간 뒤에 배고파서 과자 뜯게 되잖아\n\n그래서 나는 샐러드를 랩으로 말아버림\n\n마요네즈 대신 그릭요거트 소스 쓰는 게 포인트\n꾸덕해서 재료가 안 흘러내리고\n새콤한 게 은근 시저드레싱 느낌 나\n\n또띠아에 말면 탄단지 밸런스 맞으면서\n포만감이 샐러드의 두 배\n\n아침에 5분이면 만들어서 도시락도 됨\n조합 답글에 👇",
+      "recipe": "그릭요거트 콥샐러드 랩 (1개)\n\n[소스]\n그릭요거트 2스푼 + 머스타드 1티스푼\n+ 꿀 반 티스푼 + 소금 후추 약간\n\n[속재료]\n통밀 또띠아 1장, 삶은 계란 1개\n닭가슴살 반 쪽(찢기), 방울토마토 3개(반 컷)\n양상추 2장, 오이 4분의 1개(채)\n\n[순서]\n1. 또띠아 마른 팬에 앞뒤 30초 데우기 ★안 찢어짐\n2. 양상추 깔고 재료 일렬로, 소스 지그재그\n3. 아래를 접고 김밥 말듯 단단하게\n4. 반 컷 → 단면이 예쁘면 성공\n\n★ 랩으로 싸서 냉장하면 다음날 점심까지 OK",
       "ingredients": [
         {
-          "label": "냉동 만두",
-          "search": "고향만두 냉동"
+          "label": "그릭요거트",
+          "search": "그릭요거트 무가당"
         },
         {
-          "label": "라면 냄비",
-          "search": "양은냄비 라면"
+          "label": "통밀또띠아",
+          "search": "통밀 또띠아"
         }
       ],
-      "image_prompt": "Korean ramyeon in a golden aluminum pot with scallions and a soft egg, chopsticks lifting noodles, steam, late night home vibe, realistic phone photo",
+      "image_prompt": "Cobb salad wrap cut in half showing colorful layers of egg chicken tomato lettuce with white greek yogurt sauce, wrapped in whole wheat tortilla, parchment paper, realistic smartphone food photo, bright natural light",
       "used": false
     },
     {
       "id": "m07",
-      "name": "냉장고 털이 볶음우동",
-      "body": "냉장고에 반 개씩 남은 채소들\n버리는 게 일이지\n\n금요일마다 다 털어서\n볶음우동 하나로 끝내는데\n\n뭘 넣든 맛이 나는 건\n소스 비율 때문이야. 답글에 👇",
-      "recipe": "냉털 볶음우동 만능소스\n\n간장 2 : 굴소스 1 : 설탕 0.5 : 물 2\n\n남은 채소 아무거나 센 불 2분\n우동면 넣고 소스 붓고\n물기 날아갈 때까지 볶으면 끝\n\n★ 가쓰오부시 한 줌 올리면 가게에서 파는 맛\n★ 채소 대신 남은 삼겹살도 됨",
+      "name": "연두부 아보카도 포케볼",
+      "body": "하와이 포케볼 한 그릇에 만오천원\n재료 보면 집에서 5천원이면 되는 거 알지\n\n연어 대신 연두부 쓰는 게 내 방식인데\n이게 생각보다 진짜 괜찮아\n\n간장베이스 소스가 연두부에 스며들면\n부드러운 게 회 못지않고\n아보카도랑 같이 떠먹으면 고소함이 배가 됨\n\n불 쓸 일이 하나도 없어서\n여름에 딱임. 5분 컷\n\n소스 비율이 생명이라 답글에 정확히 적음 👇",
+      "recipe": "연두부 아보카도 포케볼 (1인분)\n\n[소스] ★비율이 생명\n간장 1.5스푼 : 참기름 1스푼 : 식초 반스푼\n+ 다진파 1스푼, 깨 약간, 고춧가루 취향껏\n\n[구성]\n밥 한 공기(현미밥 추천), 연두부 1팩\n아보카도 반 개(슬라이스), 오이 4분의 1(채)\n김가루·깨 마무리\n\n[순서]\n1. 밥 위에 연두부 얹고 스푼으로 큼직하게 나누기\n2. 아보카도·오이 둘러 담기\n3. 소스 골고루, 김가루 듬뿍\n\n★ 냉동 아보카도 쓰면 실패 없음 (해동 10분)\n★ 낫또 추가하면 단백질 폭탄",
+      "ingredients": [
+        {
+          "label": "연두부",
+          "search": "연두부"
+        },
+        {
+          "label": "냉동아보카도",
+          "search": "냉동 아보카도 슬라이스"
+        }
+      ],
+      "image_prompt": "Fresh poke bowl with silken tofu cubes avocado slices cucumber over rice, sesame soy dressing drizzle, seaweed flakes, overhead shot, realistic smartphone food photo, bright clean light",
+      "used": false
+    },
+    {
+      "id": "m08",
+      "name": "3분 미소 오트밀죽",
+      "body": "아침에 오트밀 먹어보려다 실패한 사람 많지\n우유+오트밀 조합이 맛없어서 그래\n\n오트밀은 사실 단짠이 아니라 짠맛이랑 친함\n\n미소된장 반 스푼 풀어서 죽처럼 끓이면\n일본 여행에서 먹던 아침밥 맛이 남\n전날 과음했을 때 해장으로도 최고\n\n전자레인지로 3분이면 끝나는데\n포만감은 밥 한 공기급\n\n계란까지 넣는 버전 답글에 👇",
+      "recipe": "3분 미소 오트밀죽 (1인분)\n\n[재료]\n오트밀 4스푼, 물 250ml\n미소된장(또는 집된장) 반 스푼\n계란 1개, 쪽파·깨 약간\n\n[전자레인지 순서]\n1. 큰 그릇에 오트밀+물+된장 풀기 ★그릇 작으면 넘침\n2. 1분 30초 돌리고 꺼내서 젓기\n3. 계란 깨 넣고 노른자 터뜨려 섞기\n4. 1분 더 돌리면 완성, 쪽파·깨 뿌리기\n\n★ 냄비면 중불 3분 저으면서\n★ 참치 반 캔 넣으면 든든함 2배\n★ 김치 얹어 먹으면 한식 죽 느낌",
+      "ingredients": [
+        {
+          "label": "미소된장",
+          "search": "미소 된장"
+        },
+        {
+          "label": "오트밀",
+          "search": "포리지 오트밀"
+        }
+      ],
+      "image_prompt": "Savory miso oatmeal porridge in a ceramic bowl with soft egg swirled in, chopped scallions and sesame on top, steam rising, morning light on wooden table, realistic smartphone food photo",
+      "used": false
+    },
+    {
+      "id": "m09",
+      "name": "에어프라이어 닭가슴살 유린기",
+      "body": "닭가슴살 그만 삶아\n퍽퍽해서 못 먹겠다는 말이 안 나오게 해줄게\n\n중국집 유린기 알지? 그거 소스가 다야\n튀김옷 없이 에어프라이어에 굽고\n유린기 소스만 부어도 그 맛의 8할이 남\n\n차가운 소스 + 뜨거운 고기 조합이라\n다이어트 음식인 걸 잊게 됨\n\n소스는 섞기만 하면 되고\n굽는 온도랑 시간까지 답글에 👇",
+      "recipe": "닭가슴살 유린기 (1~2인분)\n\n[굽기]\n닭가슴살 2쪽 — 우유에 10분 담가 잡내 제거\n물기 닦고 올리브유·소금·후추 문지르기\n에어프라이어 180도 10분 → 뒤집어 5분\n\n[유린기 소스] 섞기만 하면 됨\n간장 2 : 식초 1.5 : 물 1 : 설탕(알룰로스) 1\n+ 다진 대파·청양고추·마늘 1스푼씩\n\n[마무리]\n양상추 깔고 → 닭가슴살 슬라이스 → 소스 붓기\n\n★ 소스는 냉장고에 차갑게 뒀다 부어야 진짜 유린기 맛\n★ 소스 미리 만들어두면 두부·계란에도 만능",
+      "ingredients": [
+        {
+          "label": "닭가슴살",
+          "search": "냉동 생닭가슴살 1kg"
+        },
+        {
+          "label": "에프종이호일",
+          "search": "에어프라이어 종이호일"
+        }
+      ],
+      "image_prompt": "Sliced juicy chicken breast over shredded lettuce with glossy soy vinegar sauce and chopped scallions chili, Chinese yulinji style, white plate, realistic smartphone food photo, appetizing warm light",
+      "used": false
+    },
+    {
+      "id": "m10",
+      "name": "가지 두부 유니덮밥",
+      "body": "가지 싫어하는 사람도 이건 먹더라\n\n중식당 유니짜장 스타일로\n가지랑 두부를 다져서 볶으면\n고기 없이도 고기 식감이 남\n\n가지가 소스를 머금는 스펀지 역할이라\n한 입 먹으면 육즙처럼 소스가 배어나옴\n\n두부는 으깨서 볶으면 다진고기 포지션\n단백질 채우면서 재료비는 2천원대\n\n10분 컷 레시피 답글에 👇",
+      "recipe": "가지 두부 유니덮밥 (1인분)\n\n[재료]\n가지 1개(깍둑), 두부 반 모(으깨기)\n대파 반 대, 다진마늘 1스푼\n굴소스 1스푼, 간장 반스푼, 물 100ml\n전분물(전분 1 : 물 2)\n\n[순서]\n1. 팬에 기름 넉넉히, 가지 중불 3분 노릇하게\n2. 파·마늘 넣고 향 내고, 으깬 두부 넣어 수분 날리기\n3. 굴소스·간장·물 넣고 2분 끓이기\n4. 전분물 두르고 걸쭉해지면 밥 위에\n\n★ 두부는 키친타월로 꾹 눌러 물 빼면 고기 식감\n★ 마지막에 참기름·후추, 반숙 계란 올리면 완벽",
       "ingredients": [
         {
           "label": "굴소스",
           "search": "이금기 굴소스"
         },
         {
-          "label": "우동면",
-          "search": "냉동 우동면"
+          "label": "감자전분",
+          "search": "감자전분 가루"
         }
       ],
-      "image_prompt": "Stir-fried udon noodles with assorted vegetables in a wok, glossy sauce, bonito flakes on top, home kitchen, realistic phone photo, warm light",
-      "used": false
-    },
-    {
-      "id": "m08",
-      "name": "닭가슴살 촉촉하게",
-      "body": "닭가슴살이 퍽퍽한 건\n닭 잘못이 아니라 삶는 법 잘못이야\n\n다이어트 3년차가 정착한 방법인데\n바꿀 건 딱 하나\n\n'끓는 물에 넣고 불을 끈다'\n시간까지 답글에 👇",
-      "recipe": "촉촉 닭가슴살 (실패 없음)\n\n물 팔팔 끓이고 소금 1스푼\n닭가슴살 넣자마자 불 끄고 뚜껑\n그대로 15분 방치 (두꺼우면 20분)\n꺼내서 결 반대로 찢기\n\n★ 여열로 익혀서 수분이 안 빠져나감 — 이게 전부\n★ 월계수잎 한 장 있으면 잡내까지 끝",
-      "ingredients": [
-        {
-          "label": "닭가슴살",
-          "search": "냉동 닭가슴살 1kg"
-        },
-        {
-          "label": "월계수잎",
-          "search": "월계수잎"
-        }
-      ],
-      "image_prompt": "Juicy sliced chicken breast on a cutting board, moist texture visible, simple home plating with salad, realistic phone photo, natural light",
-      "used": false
-    },
-    {
-      "id": "m09",
-      "name": "감자채볶음 안 부서지게",
-      "body": "감자채볶음 할 때마다\n반은 부서져서 떡 되는 사람\n\n손 문제 아니고 전분 문제야\n\n찬물에 5분 담그는 것만으로\n식당 반찬처럼 낱개로 살아있음\n순서 답글에 👇",
-      "recipe": "안 부서지는 감자채볶음\n\n감자 채 썰어 찬물 5분 (전분 빼기)\n체에 밭쳐 물기 완전히 제거\n중불, 기름 넉넉히\n소금은 마지막에\n\n★ 뒤집개로 뒤적이지 말고 젓가락으로 살살\n★ 물기 남으면 볶는 게 아니라 찌는 거임",
-      "ingredients": [
-        {
-          "label": "채칼",
-          "search": "감자 채칼"
-        },
-        {
-          "label": "감자",
-          "search": "국산 감자 3kg"
-        }
-      ],
-      "image_prompt": "Korean stir-fried potato strips gamja-chae-bokkeum on a small white side dish plate, glossy and intact strips, sesame seeds, realistic phone photo",
-      "used": false
-    },
-    {
-      "id": "m10",
-      "name": "카레 6인분 3일 코스",
-      "body": "카레는 끓인 날보다\n다음 날이 더 맛있는 거 알지\n\n그래서 일요일에 아예 6인분 끓임\n평일 3일이 해결되는데\n\n포인트는 3일 내내 다른 음식처럼 먹는 거야\n변신 코스 답글에 👇",
-      "recipe": "카레 6인분 → 3일 코스\n\n1일차 그냥 카레라이스\n2일차 물 붓고 우동면 → 카레우동\n3일차 밥+치즈 넣고 볶기 → 카레치즈볶음밥\n\n★ 고형 반 + 가루 반 섞으면 농도가 딱 맞음\n★ 사과 반 개 갈아넣기 — 단맛이 자연스러워짐",
-      "ingredients": [
-        {
-          "label": "고형 카레",
-          "search": "바몬드 카레 고형"
-        },
-        {
-          "label": "대용량 냄비",
-          "search": "곰솥 냄비 24cm"
-        }
-      ],
-      "image_prompt": "Big pot of Japanese-style curry simmering with carrots and potatoes, ladle scooping, home kitchen stove, steam, realistic phone photo, cozy",
+      "image_prompt": "Chinese style minced eggplant tofu rice bowl with glossy brown sauce, soft boiled egg on top, scallion garnish, steam, deep bowl on dark table, realistic smartphone food photo, warm light",
       "used": false
     },
     {
       "id": "m11",
-      "name": "두부 한 모 3일 쓰기",
-      "body": "두부 한 모 사면\n반은 냉장고에서 상해서 버리지\n\n월화수 반찬이 두부 하나로 끝나는\n루틴을 정리해봤어\n\n구이 → 조림 → 찌개 순서가 핵심이야\n답글에 👇",
-      "recipe": "두부 한 모 풀코스\n\n월 [구이] 1cm 썰어 키친타월로 꾹 → 노릇하게 → 간장2+참기름1+파\n화 [조림] 남은 구이에 물 반 컵+간장2+고춧가루1+설탕0.5 졸이기\n수 [찌개] 자투리는 된장찌개로\n\n남은 두부 보관: 물에 잠기게 담가 냉장, 물은 매일 갈기\n\n★ 구이의 90%는 물기 제거 — 눌러 짜는 게 아니라 눌러 두기",
+      "name": "원팬 샥슈카",
+      "body": "주말 아침에 이거 하나 해봐\n분위기가 브런치 카페가 됨\n\n샥슈카라고 토마토 스튜에 계란 퐁당 넣는 건데\n중동에서는 그냥 국민 아침밥이야\n\n토마토홀 캔 하나면 되고\n팬 하나로 끝나서 설거지도 하나\n\n바게트 찍어 먹으면 와인 안주도 되고\n밥 말아 먹으면 해장국도 됨 (진지함)\n\n토마토가 미친 듯이 들어가서\n먹고 나면 몸이 가벼워\n\n순서 답글에 👇",
+      "recipe": "원팬 샥슈카 (1~2인분)\n\n[재료]\n토마토홀 1캔, 계란 2개, 양파 반 개\n다진마늘 1스푼, 파프리카가루(있으면) 1티스푼\n소금·후추, 올리브유\n\n[순서]\n1. 팬에 올리브유, 양파 중불 3분 → 마늘 30초\n2. 토마토홀 으깨며 붓고 파프리카가루·소금\n3. 중약불 5분 졸여서 걸쭉하게 ★묽으면 계란이 익으며 퍼짐\n4. 소스에 홈 파고 계란 깨 넣기\n5. 뚜껑 덮고 약불 3분 — 흰자만 익고 노른자는 반숙\n\n★ 페타치즈나 모짜렐라 뿌리면 카페 그 맛\n★ 남은 소스는 파스타 소스로 재활용",
       "ingredients": [
         {
-          "label": "키친타월",
-          "search": "키친타월 대용량"
+          "label": "토마토홀",
+          "search": "무티 토마토홀"
         },
         {
-          "label": "양념통",
-          "search": "소스 양념통 세트"
+          "label": "파프리카가루",
+          "search": "훈제 파프리카 가루"
         }
       ],
-      "image_prompt": "Golden pan-fried tofu slices with Korean soy dipping sauce, scallions, banchan side dishes around, realistic phone photo, home table",
+      "image_prompt": "Shakshuka in a cast iron pan, two sunny eggs poached in rich red tomato pepper sauce, parsley and feta crumbs, bread on the side, overhead shot, realistic smartphone food photo, cozy morning light",
       "used": false
     },
     {
       "id": "m12",
-      "name": "참치 미역국",
-      "body": "생일인데 소고기가 없다\n\n이럴 때 참치캔 하나면\n미역국이 15분 만에 되는데\n\n소고기 버전보다 빠르고\n맛은 안 밀린다는 게 포인트\n방법 답글에 👇",
-      "recipe": "참치 미역국 (15분)\n\n불린 미역 참기름에 2분 볶기\n물 800ml + 국간장 1.5스푼\n끓으면 참치캔(기름 빼고) 투하\n10분 더 끓이면 끝\n\n★ 참치는 오래 끓이면 퍽퍽해짐 — 꼭 마지막에\n★ 들기름으로 볶으면 고소함이 두 배",
+      "name": "양배추 오코노미야키",
+      "body": "양배추 한 통 사면 반은 버리게 되지 않아?\n\n나는 남은 양배추 전부 이걸로 처리함\n오사카식 오코노미야키\n\n밀가루 왕창 들어갈 것 같지만\n원래 정통이 양배추 8 : 반죽 2야\n오히려 양배추가 주인공인 음식\n\n오트밀가루로 하면 더 가벼워지고\n양배추 단맛이 구워지면서 확 올라옴\n\n소스 뿌리고 가쓰오부시 춤추는 거 보면\n집에서 여행 온 기분 남\n\n반죽 비율 답글에 👇",
+      "recipe": "양배추 오코노미야키 (1장)\n\n[재료]\n양배추 4분의 1통(가늘게 채)\n오트밀가루(또는 부침가루) 4스푼, 물 4스푼\n계란 1개, 소금 한 꼬집\n오코노미소스·마요네즈·가쓰오부시\n\n[순서]\n1. 반죽 재료 먼저 섞고 → 양배추 넣어 버무리기\n★양배추에 반죽이 겨우 묻는 정도가 정답\n2. 약불 팬에 두툼하게 올리고 뚜껑 덮어 5분\n3. 접시로 받쳐 뒤집고 5분 더\n4. 소스 바르고 마요 지그재그, 가쓰오부시 듬뿍\n\n★ 냉장고 자투리 채소·베이컨 아무거나 추가 가능\n★ 뒤집을 때 과감하게 — 망설이면 부서짐",
       "ingredients": [
         {
-          "label": "참치캔",
-          "search": "동원참치 살코기"
+          "label": "가쓰오부시",
+          "search": "가쓰오부시 100g"
         },
         {
-          "label": "건미역",
-          "search": "완도 건미역"
+          "label": "오코노미소스",
+          "search": "오코노미야키 소스"
         }
       ],
-      "image_prompt": "Korean seaweed soup miyeokguk in a stone bowl with rice, steam rising, simple home breakfast setting, realistic phone photo",
+      "image_prompt": "Japanese okonomiyaki cabbage pancake topped with okonomi sauce mayo zigzag and dancing bonito flakes, on a plate, home kitchen, realistic smartphone food photo, warm appetizing light",
       "used": false
     },
     {
       "id": "m13",
-      "name": "에어프라이어 냉동식품 시간표",
-      "body": "봉지 뒷면 시간 믿고 돌렸다가\n겉은 타고 속은 얼음인 만두 먹어본 사람 손\n\n에어프라이어 3년 쓰면서 정리한\n냉동식품 진짜 시간표야\n\n만두, 치킨, 감튀, 식은 피자까지\n저장해두면 평생 씀. 답글에 👇",
-      "recipe": "에프 실전 시간표 (180도 기준)\n\n냉동만두 12분 — 5분에 뒤집기, 기름 살짝\n냉동치킨 15분 — 안 뒤집으면 한쪽만 탐\n냉동감튀 18분 — 중간에 바스켓 흔들기\n식은 피자 6분 — 배달 직후 맛 부활\n\n★ 다들 건너뛰는 예열 3분이 바삭함의 절반\n★ 종이호일 깔면 설거지 0",
+      "name": "단호박 두유 리소토",
+      "body": "생크림 없는 리소토가 가능하냐면\n단호박이면 가능함\n\n냉동 단호박을 두유랑 끓이면\n자연스럽게 크림처럼 걸쭉해지는데\n여기에 밥 넣고 졸이면 그게 리소토야\n\n버터·생크림 없이도 꾸덕한 이유는\n단호박 전분이 다 해주기 때문\n\n달큰한 맛 때문에 여자친구 반응이\n역대급이었던 메뉴 (참고로 재료비 3천원)\n\n순서 답글에 👇",
+      "recipe": "단호박 두유 리소토 (1인분)\n\n[재료]\n냉동 단호박 150g, 무가당 두유 200ml\n찬밥 한 공기, 양파 4분의 1(다지기)\n파마산 치즈가루 1스푼, 소금·후추\n\n[순서]\n1. 팬에 양파 중불 2분 투명하게\n2. 단호박+두유 넣고 3분 → 단호박 으깨기\n★여기서 다 으깨면 수프, 반만 으깨면 리소토 식감\n3. 밥 넣고 저으면서 4분 졸이기\n4. 불 끄고 치즈가루, 소금으로 간, 후추 마무리\n\n★ 새우 3마리 구워 올리면 레스토랑 버전\n★ 다음날 우유 부어 데우면 수프로 2차 활용",
       "ingredients": [
         {
-          "label": "기름 스프레이",
-          "search": "오일 스프레이 분사기"
+          "label": "냉동단호박",
+          "search": "냉동 단호박"
         },
         {
-          "label": "에어프라이어 종이호일",
-          "search": "에어프라이어 종이호일"
+          "label": "파마산치즈",
+          "search": "파마산 치즈가루"
         }
       ],
-      "image_prompt": "Air fryer basket with golden crispy dumplings, kitchen counter, steam, realistic phone photo, appetizing close-up",
+      "image_prompt": "Creamy orange pumpkin risotto in a shallow bowl with parmesan shavings and black pepper, spoon lifting a creamy scoop, realistic smartphone food photo, soft warm light",
       "used": false
     },
     {
       "id": "m14",
-      "name": "두부면 비빔국수",
-      "body": "다이어트 중에 비빔국수 당길 때\n곤약면 먹어봤으면 알잖아\n그 고무줄 씹는 느낌\n\n두부면으로 갈아타고 해결됐어\n삶을 필요도 없어서 5분 컷\n\n양념 비율 답글에 👇",
-      "recipe": "두부면 비빔국수 (5분)\n\n두부면 찬물에 헹궈 물기 빼기 (삶기 없음)\n양념 = 고추장1 : 식초1 : 올리고당1 : 참기름0.5\n오이채 + 삶은계란 올리면 끝\n\n★ 일반 비빔국수 양념 그대로 쓰면 됨\n★ 열량은 절반, 단백질은 두 배",
+      "name": "전기밥솥 버섯 퀴노아밥",
+      "body": "퀴노아 사놓고 찬장에 방치한 사람 손 들어\n\n샐러드에 뿌리려니 귀찮아서 안 먹게 되잖아\n그냥 밥 지을 때 넣으면 되는 거였음\n\n쌀 3 : 퀴노아 1로 밥솥에 넣고\n버섯 올려서 취사 누르면 끝\n\n버섯 육수가 밥에 배면서\n솥밥 전문점에서 파는 그 맛이 남\n\n톡톡 터지는 퀴노아 식감이 은근 중독이고\n양념장 하나면 반찬도 필요 없음\n\n양념장 비율까지 답글에 👇",
+      "recipe": "전기밥솥 버섯 퀴노아밥 (2~3인분)\n\n[재료]\n쌀 1.5컵 + 퀴노아 0.5컵 (씻어서)\n버섯 아무거나 200g (표고+느타리 추천)\n물은 평소 밥물보다 약간 적게\n\n[양념장] ★이게 본체\n간장 3 : 참기름 1 : 물 1\n+ 다진파 2스푼, 깨 1스푼, 고춧가루 반스푼\n\n[순서]\n1. 쌀+퀴노아 밥솥에, 밥물 맞추기\n2. 버섯 찢어서 위에 수북이 (섞지 말기)\n3. 백미 취사 → 완료되면 주걱으로 섞기\n4. 그릇에 담고 양념장 둘러서\n\n★ 남은 밥은 주먹밥으로 뭉쳐 냉동하면 최고의 비상식량",
       "ingredients": [
         {
-          "label": "두부면",
-          "search": "포두부 두부면"
+          "label": "퀴노아",
+          "search": "퀴노아 1kg"
         },
         {
-          "label": "올리고당",
-          "search": "올리고당 700g"
+          "label": "건표고버섯",
+          "search": "건표고버섯 슬라이스"
         }
       ],
-      "image_prompt": "Korean spicy bibim noodles made with tofu noodles, cucumber strips and boiled egg on top, red sauce, fresh look, realistic phone photo",
+      "image_prompt": "Korean pot rice with quinoa and assorted mushrooms in a rice cooker bowl, fluffy steam, soy scallion sauce in small dish beside, overhead shot, realistic smartphone food photo, warm homey light",
       "used": false
     },
     {
       "id": "m15",
-      "name": "원팬 파스타",
-      "body": "파스타 한 번 하면\n냄비, 팬, 접시 설거지 3종 세트지\n\n면을 안 삶으면 팬 하나로 끝나는데\n물 양만 알면 돼\n\n면이 물을 먹으면서 그대로 소스가 됨\n비율 답글에 👇",
-      "recipe": "원팬 토마토 파스타\n\n팬에 마늘·베이컨 볶기\n물 400ml + 토마토소스 1컵 + 마른 면 그대로 투하\n중불 9분, 가끔 저어주기\n\n물이 줄면서 소스 농도가 저절로 맞음\n\n★ 스파게티면 반 갈라 넣으면 팬에 딱 들어감\n★ 마지막에 치즈 한 장 — 크림파스타 안 부러움",
+      "name": "바나나 오트 팬케이크",
+      "body": "설탕 밀가루 버터 다 없이 팬케이크가 되냐\n됨. 바나나만 잘 익었으면 됨\n\n재료 3개 — 바나나, 계란, 오트밀\n믹서에 갈아서 굽기만 하면 되는데\n바나나 당분이 구워지면서 캐러멜화돼서\n시럽 없이도 충분히 달아\n\n주말 아침에 커피랑 같이 구우면\n숙소 조식 느낌 나서 기분까지 좋아짐\n\n안 태우고 굽는 불 조절이 핵심이라\n그거까지 답글에 적어둠 👇",
+      "recipe": "바나나 오트 팬케이크 (6~7장)\n\n[재료]\n잘 익은 바나나 2개 ★검은 점 많을수록 달아짐\n계란 2개, 오트밀 6스푼\n(취향: 시나몬가루 약간, 소금 한 꼬집)\n\n[순서]\n1. 전부 믹서에 넣고 30초 — 반죽 끝\n2. 팬을 약불로 충분히 예열 ★중불이면 겉만 타고 속 안 익음\n3. 반죽을 국자 반 개씩, 작게 여러 장\n4. 표면에 기포가 뽕뽕 올라오면 그때 뒤집기\n5. 뒤집고 1분이면 완성\n\n★ 그릭요거트+땅콩버터 올리면 단백질 디저트\n★ 반죽은 냉장 하루 보관 가능",
       "ingredients": [
         {
-          "label": "토마토 소스",
-          "search": "폰타나 토마토 파스타소스"
+          "label": "무가당땅콩버터",
+          "search": "무가당 땅콩버터"
         },
         {
-          "label": "깊은 팬",
-          "search": "깊은 프라이팬 26cm"
+          "label": "시나몬가루",
+          "search": "시나몬 가루"
         }
       ],
-      "image_prompt": "One-pan tomato pasta in a deep skillet, cheese melting on top, fork twirling noodles, home kitchen, realistic phone photo, warm light",
+      "image_prompt": "Stack of golden banana oat pancakes with greek yogurt dollop and peanut butter drizzle, banana slices on top, morning coffee beside, realistic smartphone food photo, bright cozy morning light",
       "used": false
     }
   ]

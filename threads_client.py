@@ -59,6 +59,30 @@ def _create_container(uid: str, token: str, text: str,
     return r.json()["id"]
 
 
+def _create_carousel(uid: str, token: str, text: str, image_urls: list[str],
+                     reply_to_id: str | None = None,
+                     topic_tag: str | None = None) -> str:
+    """캐러셀 컨테이너: 아이템 컨테이너들 → children으로 묶은 CAROUSEL 컨테이너."""
+    import requests
+    children = []
+    for url in image_urls:
+        r = requests.post(f"{BASE}/{uid}/threads",
+                          data={"access_token": token, "media_type": "IMAGE",
+                                "image_url": url, "is_carousel_item": "true"},
+                          timeout=30)
+        r.raise_for_status()
+        children.append(r.json()["id"])
+    params = {"access_token": token, "media_type": "CAROUSEL",
+              "children": ",".join(children), "text": text}
+    if reply_to_id:
+        params["reply_to_id"] = reply_to_id
+    if topic_tag:
+        params["topic_tag"] = topic_tag.replace(".", "").replace("&", "")[:50]
+    r = requests.post(f"{BASE}/{uid}/threads", data=params, timeout=30)
+    r.raise_for_status()
+    return r.json()["id"]
+
+
 def _publish(uid: str, token: str, container_id: str) -> str:
     import requests
     r = requests.post(
@@ -72,13 +96,23 @@ def _publish(uid: str, token: str, container_id: str) -> str:
 
 def post(text: str, image_url: str | None = None,
          reply_to_id: str | None = None, wait_seconds: int = 30,
-         topic_tag: str | None = None) -> str:
-    """게시(또는 답글) 후 게시물 ID 반환. 이미지 컨테이너는 처리 대기 권장(30초)."""
+         topic_tag: str | None = None,
+         image_urls: list[str] | None = None) -> str:
+    """게시(또는 답글) 후 게시물 ID 반환. 이미지 컨테이너는 처리 대기 권장(30초).
+
+    image_urls에 2장 이상을 주면 캐러셀(스와이프) 게시. 1장이면 단일 이미지.
+    """
     creds = credentials()
     if not creds:
         raise RuntimeError("THREADS_USER_ID / THREADS_ACCESS_TOKEN이 없습니다 (.env 확인, README 참고)")
     uid, token = creds
-    cid = _create_container(uid, token, text, image_url, reply_to_id, topic_tag)
-    if image_url:
-        time.sleep(wait_seconds)  # 미디어 처리 대기 (공식 권장 평균 30초)
+    urls = image_urls or ([image_url] if image_url else [])
+    if len(urls) > 1:
+        cid = _create_carousel(uid, token, text, urls, reply_to_id, topic_tag)
+        time.sleep(wait_seconds * 2)  # 캐러셀은 아이템 수만큼 처리 시간이 더 걸림
+    else:
+        cid = _create_container(uid, token, text, urls[0] if urls else None,
+                                reply_to_id, topic_tag)
+        if urls:
+            time.sleep(wait_seconds)  # 미디어 처리 대기 (공식 권장 평균 30초)
     return _publish(uid, token, cid)

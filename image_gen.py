@@ -43,18 +43,31 @@ def is_configured() -> bool:
     return True
 
 
-def _pollinations(prompt: str, out_path: Path) -> bool:
+# 캐러셀 4컷 — 같은 음식을 다른 각도에서 (사용자 요청 2026-07-27)
+ANGLES = [
+    "",  # 대표컷 (프롬프트 원본 그대로)
+    ", extreme close-up macro shot showing the texture and steam of the same dish",
+    ", the same dish seen from a 45 degree angle with the table setting and utensils visible",
+    ", the same dish top-down flat lay view from directly above, chopsticks or spoon beside",
+]
+
+
+def _pollinations(prompt: str, out_path: Path, seed: int | None = None) -> bool:
     """Pollinations.ai — 무료·키 불필요 (content_factory에서 검증된 기본 경로).
 
     Gemini 이미지 모델은 무료 등급 한도가 0이라(실측 429) 이쪽을 우선한다.
+    seed를 바꾸면 같은 프롬프트에서 다른 구도가 나온다 (캐러셀 변주용).
     """
     import urllib.parse
 
     import requests
     try:
+        params = {"width": 1080, "height": 1350, "nologo": "true"}
+        if seed is not None:
+            params["seed"] = str(seed)
         r = requests.get(
             "https://image.pollinations.ai/prompt/" + urllib.parse.quote(prompt + STYLE_SUFFIX),
-            params={"width": 1080, "height": 1350, "nologo": "true"},
+            params=params,
             timeout=120,
         )
         if r.ok and "image" in r.headers.get("content-type", ""):
@@ -68,6 +81,20 @@ def _pollinations(prompt: str, out_path: Path) -> bool:
     except Exception:
         pass
     return False
+
+
+def generate_set(prompt: str, out_dir: Path, stem: str, count: int = 4) -> list[Path]:
+    """같은 음식 다각도 4컷 생성 → {stem}_1.png … {stem}_4.png 경로 리스트 반환.
+
+    각 컷은 각도 지시 + 랜덤 seed로 변주. 일부만 성공해도 성공분은 그대로 쓴다.
+    """
+    import random
+    made = []
+    for i, angle in enumerate(ANGLES[:count], 1):
+        p = out_dir / f"{stem}_{i}.png"
+        if p.exists() or _pollinations(prompt + angle, p, seed=random.randint(1, 10**8)):
+            made.append(p)
+    return made
 
 
 def generate(prompt: str, out_path: Path, model: str = "gemini-2.5-flash-image") -> bool:

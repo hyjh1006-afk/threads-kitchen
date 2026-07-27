@@ -17,7 +17,7 @@ from datetime import date
 from pathlib import Path
 
 import threads_client
-from make_draft import CONFIG, build_reply, ensure_image, pick_menu, with_ad_tag
+from make_draft import CONFIG, build_reply, ensure_images, pick_menu, with_ad_tag
 from post_approved import mark_used, record
 
 BASE = Path(__file__).parent
@@ -73,25 +73,31 @@ def main() -> int:
         return tags[posted % len(tags)]
 
     log(f"오늘의 메뉴: {menu['name']} ({menu['id']})")
-    image_url = ensure_image(menu)
+    image_urls = ensure_images(menu)
     body = with_ad_tag(menu["body"])
     topic = pick_topic()
-    reply_text, links = build_reply(menu, include_missing=False)
+    reply_text, links_text, links = build_reply(menu, include_missing=False)
     ok_links = [l["label"] for l in links if l.get("url")]
-    log(f"이미지: {'있음' if image_url else '없음(텍스트 게시)'} / 주제: {topic or '없음'} / 링크: {ok_links or '없음'}")
+    log(f"이미지: {len(image_urls)}장 / 주제: {topic or '없음'} / 링크: {ok_links or '없음'}")
 
     log("본문 게시…")
-    body_id = threads_client.post(body, image_url=image_url, topic_tag=topic)
+    body_id = threads_client.post(body, image_urls=image_urls or None, topic_tag=topic)
     log(f"  게시됨: {body_id}")
     delay = int(CONFIG["posting"].get("reply_delay_seconds", 45))
     time.sleep(delay)
-    log("답글 게시…")
+    log("답글1(레시피) 게시…")
     reply_id = threads_client.post(fit_500(reply_text), reply_to_id=body_id)
     log(f"  게시됨: {reply_id}")
+    links_id = None
+    if links_text:
+        time.sleep(delay)
+        log("답글2(재료 링크) 게시…")
+        links_id = threads_client.post(fit_500(links_text), reply_to_id=reply_id)
+        log(f"  게시됨: {links_id}")
 
     mark_used(menu["id"])
     record({"date": today, "menu": menu["name"], "body_id": body_id,
-            "reply_id": reply_id, "mode": "auto", "links": ok_links})
+            "reply_id": reply_id, "links_id": links_id, "mode": "auto", "links": ok_links})
     LAST.parent.mkdir(exist_ok=True)
     LAST.write_text(json.dumps({"date": today, "menu": menu["id"]}), encoding="utf-8")
     log("완료")

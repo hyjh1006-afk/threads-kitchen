@@ -36,14 +36,18 @@ def with_ad_tag(body: str) -> str:
     return body if body.startswith(tag) else f"{tag} {body}"
 
 
-def build_reply(menu: dict, include_missing: bool = True) -> tuple[str, list[dict]]:
-    """답글 텍스트: 공정위 문구 상단 → 레시피 → 재료 링크.
+def build_reply(menu: dict, include_missing: bool = True) -> tuple[str, str | None, list[dict]]:
+    """답글 2개 체인: (답글1=레시피 전문, 답글2=재료 링크+안내문구, links).
+
+    레시피를 상세하게 쓰기 위해 스레드 500자 한도를 답글 2개로 나눈다
+    (사용자 요청 2026-07-27). 답글2가 없으면(링크 전부 실패) None —
+    광고가 없으니 안내문구도 불필요하다.
 
     include_missing=False(자동 모드): 링크 생성 실패한 재료 줄은 아예 뺀다
     (자리 표시 문구가 실제 게시되는 사고 방지).
     안내문구 위치는 config.disclosure_position: reply_top | reply_bottom(사용자 결정).
     """
-    lines = [menu["recipe"], ""]
+    lines = ["재료는 이걸로 했어 👇", ""]
     links = []
     for ing in menu["ingredients"]:
         item = coupang_link.search_link(ing["search"], CONFIG.get("coupang_subid", "threads_kitchen"))
@@ -53,39 +57,47 @@ def build_reply(menu: dict, include_missing: bool = True) -> tuple[str, list[dic
         elif include_missing:
             lines.append(f"🛒 {ing['label']}: [링크 자리 — 파트너스 키 설정 후 자동 생성]")
             links.append({"label": ing["label"], "url": None, "note": "키 미설정 또는 검색 실패"})
+    if not any(l.get("url") for l in links) and not include_missing:
+        return menu["recipe"], None, links
     if CONFIG.get("disclosure_position", "reply_bottom") == "reply_top":
         lines.insert(0, CONFIG["disclosure"] + "\n")
     else:
         lines += ["", CONFIG["disclosure"]]
-    return "\n".join(lines).rstrip(), links
+    return menu["recipe"], "\n".join(lines).rstrip(), links
 
 
-def ensure_image(menu: dict) -> str | None:
-    """이미지 자동 파이프라인: 생성(Gemini) → git push 호스팅 → 공개 URL 검증.
+def ensure_images(menu: dict) -> list[str]:
+    """이미지 자동 파이프라인: 4컷 세트 생성(Pollinations) → git push → URL 검증.
 
-    어느 단계가 실패해도 None을 반환하고 텍스트-온리로 진행한다.
+    {id}_1..4.png 세트를 우선 쓰고, 구버전 단일 {id}.png는 폴백.
+    어느 단계가 실패해도 성공한 만큼의 URL 리스트(없으면 빈 리스트)를 반환한다.
     """
-    local = BASE / "images" / f"{menu['id']}.png"
-    if not local.exists():
-        if not image_gen.is_configured():
-            print("  (GEMINI_API_KEY 없음 — 텍스트로 진행)")
-            return None
-        print(f"  이미지 생성 중… ({menu['id']}.png)")
-        if not image_gen.generate(menu["image_prompt"], local,
-                                  CONFIG.get("image_model", "gemini-2.5-flash-image")):
-            return None
+    imgdir = BASE / "images"
+    variants = sorted(imgdir.glob(f"{menu['id']}_*.png"))
+    if not variants:
+        legacy = imgdir / f"{menu['id']}.png"
+        if legacy.exists():
+            variants = [legacy]
+    if not variants:
+        print(f"  이미지 4컷 생성 중… ({menu['id']})")
+        variants = image_gen.generate_set(menu["image_prompt"], imgdir, menu["id"])
+    if not variants:
+        return []
     image_base = CONFIG.get("image_base_url", "").strip().rstrip("/")
     if not image_base:
-        print(f"  (이미지 로컬 생성됨: {local.name} — 호스팅하려면 config의 image_base_url 설정)")
-        return None
+        print("  (이미지 로컬만 생성됨 — 호스팅하려면 config의 image_base_url 설정)")
+        return []
     if not image_host.push_images():
         print("  (이미지 푸시 실패/원격 없음 — 텍스트로 진행)")
-        return None
-    url = f"{image_base}/{menu['id']}.png"
-    if not image_host.verify_url(url):
-        print(f"  (공개 URL 확인 실패: {url} — 텍스트로 진행)")
-        return None
-    return url
+        return []
+    urls = []
+    for p in variants:
+        url = f"{image_base}/{p.name}"
+        if image_host.verify_url(url):
+            urls.append(url)
+        else:
+            print(f"  (공개 URL 확인 실패: {url} — 이 컷 제외)")
+    return urls
 
 
 def main():
@@ -98,17 +110,18 @@ def main():
         print("소재 은행이 비었습니다 — menus.json에 메뉴를 추가하세요.")
         return
 
-    image_url = ensure_image(menu)
+    image_urls = ensure_images(menu)
 
-    reply_text, links = build_reply(menu)
+    reply_text, links_text, links = build_reply(menu)
     draft = {
         "date": date.today().isoformat(),
         "menu_id": menu["id"],
         "menu_name": menu["name"],
         "body_text": with_ad_tag(menu["body"]),
-        "image_url": image_url,
+        "image_urls": image_urls,
         "image_prompt": menu["image_prompt"],
         "reply_text": reply_text,
+        "links_text": links_text,
         "links": links,
         "status": "PENDING_APPROVAL",
     }
@@ -120,8 +133,9 @@ def main():
     print("=" * 46)
     print("\n--- 본문 ---\n" + draft["body_text"])
     print("\n--- 이미지 ---")
-    print(image_url if image_url else "(텍스트-온리 게시 — 이미지 파이프라인 미완성 시 자동 폴백)")
-    print("\n--- 답글 ---\n" + reply_text)
+    print("\n".join(image_urls) if image_urls else "(텍스트-온리 게시 — 이미지 파이프라인 미완성 시 자동 폴백)")
+    print("\n--- 답글1 (레시피) ---\n" + reply_text)
+    print("\n--- 답글2 (재료 링크) ---\n" + (links_text or "(링크 없음 — 생략)"))
     print("\n검토 후 게시하려면:  python post_approved.py --yes")
 
 

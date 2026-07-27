@@ -29,7 +29,9 @@ def pick_menu(menu_id: str | None = None) -> dict | None:
 
 
 def with_ad_tag(body: str) -> str:
-    """공정위 규정: 광고 표기는 본문 상단 — 첫 줄에 [광고] 태그 자동 삽입."""
+    """본문 [광고] 태그 — 사용자 결정(2026-07-27)으로 기본 OFF (config로 복귀 가능)."""
+    if not CONFIG.get("ad_tag_in_body", False):
+        return body
     tag = CONFIG.get("ad_tag", "[광고]")
     return body if body.startswith(tag) else f"{tag} {body}"
 
@@ -39,8 +41,9 @@ def build_reply(menu: dict, include_missing: bool = True) -> tuple[str, list[dic
 
     include_missing=False(자동 모드): 링크 생성 실패한 재료 줄은 아예 뺀다
     (자리 표시 문구가 실제 게시되는 사고 방지).
+    안내문구 위치는 config.disclosure_position: reply_top | reply_bottom(사용자 결정).
     """
-    lines = [CONFIG["disclosure"], "", menu["recipe"], ""]
+    lines = [menu["recipe"], ""]
     links = []
     for ing in menu["ingredients"]:
         item = coupang_link.search_link(ing["search"], CONFIG.get("coupang_subid", "threads_kitchen"))
@@ -50,6 +53,10 @@ def build_reply(menu: dict, include_missing: bool = True) -> tuple[str, list[dic
         elif include_missing:
             lines.append(f"🛒 {ing['label']}: [링크 자리 — 파트너스 키 설정 후 자동 생성]")
             links.append({"label": ing["label"], "url": None, "note": "키 미설정 또는 검색 실패"})
+    if CONFIG.get("disclosure_position", "reply_bottom") == "reply_top":
+        lines.insert(0, CONFIG["disclosure"] + "\n")
+    else:
+        lines += ["", CONFIG["disclosure"]]
     return "\n".join(lines).rstrip(), links
 
 

@@ -47,24 +47,41 @@ def main() -> int:
         return 1
 
     def fit_500(text: str) -> str:
-        """스레드 글자수 한도(500자) 가드 — 초과 시 마지막 링크 줄부터 덜어낸다.
+        """스레드 글자수 한도(500자) 가드 — 초과 시 링크 줄부터 덜어낸다.
 
         실측: 첫 게시에서 원본 딥링크(300자+)로 답글이 500 에러. 단축링크로
         해결했지만, 레시피가 길어질 때를 대비한 최종 안전장치.
+        안내문구(공정위) 줄은 절대 잘리지 않도록 줄 단위로 처리한다.
         """
-        while len(text) > 500 and "\n🛒" in text:
-            text = text[:text.rfind("\n🛒")].rstrip()
-        return text[:500]
+        lines = text.split("\n")
+        while len("\n".join(lines)) > 500:
+            idx = max((i for i, l in enumerate(lines) if l.startswith("🛒")), default=None)
+            if idx is None:
+                break
+            lines.pop(idx)
+        return "\n".join(lines)[:500]
+
+    def pick_topic() -> str | None:
+        """주제 태그 로테이션 — 게시 수 기준으로 순환."""
+        tags = CONFIG.get("topic_tags") or []
+        if not tags:
+            return None
+        posted = 0
+        rec = BASE / "state" / "posted.json"
+        if rec.exists():
+            posted = len(json.loads(rec.read_text(encoding="utf-8")))
+        return tags[posted % len(tags)]
 
     log(f"오늘의 메뉴: {menu['name']} ({menu['id']})")
     image_url = ensure_image(menu)
     body = with_ad_tag(menu["body"])
+    topic = pick_topic()
     reply_text, links = build_reply(menu, include_missing=False)
     ok_links = [l["label"] for l in links if l.get("url")]
-    log(f"이미지: {'있음' if image_url else '없음(텍스트 게시)'} / 링크: {ok_links or '없음'}")
+    log(f"이미지: {'있음' if image_url else '없음(텍스트 게시)'} / 주제: {topic or '없음'} / 링크: {ok_links or '없음'}")
 
     log("본문 게시…")
-    body_id = threads_client.post(body, image_url=image_url)
+    body_id = threads_client.post(body, image_url=image_url, topic_tag=topic)
     log(f"  게시됨: {body_id}")
     delay = int(CONFIG["posting"].get("reply_delay_seconds", 45))
     time.sleep(delay)

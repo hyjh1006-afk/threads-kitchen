@@ -40,7 +40,8 @@ def is_configured() -> bool:
 
 def _create_container(uid: str, token: str, text: str,
                       image_url: str | None = None,
-                      reply_to_id: str | None = None) -> str:
+                      reply_to_id: str | None = None,
+                      topic_tag: str | None = None) -> str:
     import requests
     params = {"access_token": token, "text": text}
     if image_url:
@@ -50,6 +51,9 @@ def _create_container(uid: str, token: str, text: str,
         params["media_type"] = "TEXT"
     if reply_to_id:
         params["reply_to_id"] = reply_to_id
+    if topic_tag:
+        # 주제 태그: 포스트당 1개, 1~50자, 마침표·& 금지. 주제 팔로워에게 노출됨
+        params["topic_tag"] = topic_tag.replace(".", "").replace("&", "")[:50]
     r = requests.post(f"{BASE}/{uid}/threads", data=params, timeout=30)
     r.raise_for_status()
     return r.json()["id"]
@@ -67,13 +71,14 @@ def _publish(uid: str, token: str, container_id: str) -> str:
 
 
 def post(text: str, image_url: str | None = None,
-         reply_to_id: str | None = None, wait_seconds: int = 30) -> str:
+         reply_to_id: str | None = None, wait_seconds: int = 30,
+         topic_tag: str | None = None) -> str:
     """게시(또는 답글) 후 게시물 ID 반환. 이미지 컨테이너는 처리 대기 권장(30초)."""
     creds = credentials()
     if not creds:
         raise RuntimeError("THREADS_USER_ID / THREADS_ACCESS_TOKEN이 없습니다 (.env 확인, README 참고)")
     uid, token = creds
-    cid = _create_container(uid, token, text, image_url, reply_to_id)
+    cid = _create_container(uid, token, text, image_url, reply_to_id, topic_tag)
     if image_url:
         time.sleep(wait_seconds)  # 미디어 처리 대기 (공식 권장 평균 30초)
     return _publish(uid, token, cid)

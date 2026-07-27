@@ -13,7 +13,11 @@
   "_auto_설명": "true=매일 자동 게시(사용자 승인 2026-07-26, GitHub Actions 11:20 KST). false로 바꾸면 make_draft→post_approved 승인형으로 복귀.",
   "disclosure": "본 게시물은 쿠팡 파트너스 활동으로 수수료를 제공받습니다.",
   "ad_tag": "[광고]",
-  "_고지_설명": "공정위 2026 기준: 본문 상단 표기 의무(댓글만 표기 금지), 확정형 문구만 인정. ad_tag는 본문 첫 줄에 자동 삽입됨.",
+  "ad_tag_in_body": false,
+  "disclosure_position": "reply_bottom",
+  "_고지_설명": "2026-07-27 사용자 결정: 본문 [광고] 제거, 안내문구는 답글 맨 끝. ⚠ 공정위 2026 지침(본문 상단 표기 권고, 댓글-끝부분 표기는 고지 미흡 소지)과 다른 운영임을 인지하고 선택 — 문제 시 ad_tag_in_body=true, disclosure_position=reply_top으로 즉시 복귀.",
+  "topic_tags": ["집밥", "요리", "레시피", "자취요리", "오늘뭐먹지", "다이어트식단", "혼밥"],
+  "_주제_설명": "게시마다 하나씩 로테이션(포스트당 1개 제한). 스레드 앱에서 팔로워 많은 주제를 확인해 자유롭게 교체 가능.",
   "image_base_url": "https://raw.githubusercontent.com/hyjh1006-afk/threads-kitchen/main/images",
   "_image_설명": "이미지 공개 호스팅 주소. 저장소 생성 후 유효해짐. 비우면 텍스트만 게시.",
   "coupang_subid": "threads_kitchen"

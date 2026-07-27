@@ -27,8 +27,9 @@ SEARCH_PATH = "/v2/providers/affiliate_open_api/apis/openapi/products/search"
 def _keys() -> tuple[str, str] | None:
     from threads_client import _load_env
     _load_env()
-    a = os.environ.get("COUPANG_ACCESS_KEY", "").strip()
-    s = os.environ.get("COUPANG_SECRET_KEY", "").strip()
+    # GitHub Secrets에 BOM(﻿)이 섞여 들어오면 HTTP 헤더 생성이 터진다 (실측 사고)
+    a = os.environ.get("COUPANG_ACCESS_KEY", "").strip(" \t\r\n\ufeff\u200b")
+    s = os.environ.get("COUPANG_SECRET_KEY", "").strip(" \t\r\n\ufeff\u200b")
     if a and s:
         return a, s
     if KEYS_PATH.exists():

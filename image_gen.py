@@ -39,11 +39,41 @@ def _api_key() -> str | None:
 
 
 def is_configured() -> bool:
-    return _api_key() is not None
+    """Pollinations는 키가 필요 없으므로 항상 생성 가능."""
+    return True
+
+
+def _pollinations(prompt: str, out_path: Path) -> bool:
+    """Pollinations.ai — 무료·키 불필요 (content_factory에서 검증된 기본 경로).
+
+    Gemini 이미지 모델은 무료 등급 한도가 0이라(실측 429) 이쪽을 우선한다.
+    """
+    import urllib.parse
+
+    import requests
+    try:
+        r = requests.get(
+            "https://image.pollinations.ai/prompt/" + urllib.parse.quote(prompt + STYLE_SUFFIX),
+            params={"width": 1080, "height": 1350, "nologo": "true"},
+            timeout=120,
+        )
+        if r.ok and "image" in r.headers.get("content-type", ""):
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            # 보통 JPEG로 오므로 확장자와 실제 포맷을 맞춰 PNG로 변환 저장
+            import io
+
+            from PIL import Image
+            Image.open(io.BytesIO(r.content)).convert("RGB").save(out_path, "PNG")
+            return True
+    except Exception:
+        pass
+    return False
 
 
 def generate(prompt: str, out_path: Path, model: str = "gemini-2.5-flash-image") -> bool:
-    """프롬프트로 이미지 1장 생성해 out_path(png)에 저장. 성공 여부 반환."""
+    """프롬프트로 이미지 1장 생성해 out_path에 저장: Pollinations 우선 → Gemini 폴백."""
+    if _pollinations(prompt, out_path):
+        return True
     key = _api_key()
     if not key:
         return False

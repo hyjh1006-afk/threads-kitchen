@@ -29,8 +29,8 @@ def _load_env():
 
 def credentials() -> tuple[str, str] | None:
     _load_env()
-    uid = os.environ.get("THREADS_USER_ID", "").strip()
-    token = os.environ.get("THREADS_ACCESS_TOKEN", "").strip()
+    uid = os.environ.get("THREADS_USER_ID", "").strip(" \t\r\n\ufeff\u200b")
+    token = os.environ.get("THREADS_ACCESS_TOKEN", "").strip(" \t\r\n\ufeff\u200b")
     return (uid, token) if uid and token else None
 
 

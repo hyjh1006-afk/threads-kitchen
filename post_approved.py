@@ -32,6 +32,7 @@ def mark_used(menu_id: str):
 def record(entry: dict):
     log = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else []
     log.append(entry)
+    STATE.parent.mkdir(exist_ok=True)  # Actions 러너엔 state/가 없다 (7/27 크래시)
     STATE.write_text(json.dumps(log, ensure_ascii=False, indent=2), encoding="utf-8")
 
 

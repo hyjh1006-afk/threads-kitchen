@@ -41,7 +41,7 @@ jobs:
 
       - name: 상태 커밋 (menus.json used 표시 등)
         run: |
-          git add menus.json images || true
+          git add menus.json images state || true
           git diff --cached --quiet || git commit -m "자동 게시 기록 $(date -u +%F)"
           git pull --rebase origin main || true
           git push || true

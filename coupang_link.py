@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import hashlib
 import hmac
+import json
 import os
 from datetime import datetime, timezone
 from pathlib import Path
@@ -49,8 +50,32 @@ def _auth_header(method: str, path_with_query: str, access: str, secret: str) ->
     return f"CEA algorithm=HmacSHA256, access-key={access}, signed-date={dt}, signature={sig}"
 
 
+DEEPLINK_PATH = "/v2/providers/affiliate_open_api/apis/openapi/v1/deeplink"
+
+
+def _shorten(url: str, access: str, secret: str, sub_id: str) -> str | None:
+    """긴 상품 URL → 짧은 파트너스 링크 (link.coupang.com/a/XXXX, ~30자).
+
+    스레드는 글자수 500자 제한이라 원본 딥링크(300자+)는 못 쓴다 (실측: 답글 500 에러).
+    """
+    import requests
+    try:
+        body = json.dumps({"coupangUrls": [url], "subId": sub_id})
+        r = requests.post(
+            DOMAIN + DEEPLINK_PATH,
+            headers={"Authorization": _auth_header("POST", DEEPLINK_PATH, access, secret),
+                     "Content-Type": "application/json"},
+            data=body, timeout=15,
+        )
+        r.raise_for_status()
+        data = (r.json().get("data") or [])
+        return data[0].get("shortenUrl") if data else None
+    except requests.RequestException:
+        return None
+
+
 def search_link(keyword: str, sub_id: str = "threads_kitchen", limit: int = 10) -> dict | None:
-    """검색어로 상품을 찾아 {name, price, url} 반환. 실패/미설정 시 None."""
+    """검색어로 상품을 찾아 {name, price, url(단축)} 반환. 실패/미설정 시 None."""
     creds = _keys()
     if not creds:
         return None
@@ -71,10 +96,23 @@ def search_link(keyword: str, sub_id: str = "threads_kitchen", limit: int = 10) 
         words = keyword.split()
         items.sort(key=lambda p: -sum(w in p.get("productName", "") for w in words))
         top = items[0]
+        url = top.get("productUrl")
+        # 단축 API는 원상품 URL만 받는다 — 제휴 링크에서 상품 번호를 뽑아 재구성
+        short = None
+        if url:
+            from urllib.parse import parse_qs, urlparse
+            q = parse_qs(urlparse(url).query)
+            page_key = (q.get("pageKey") or [None])[0]
+            item_id = (q.get("itemId") or [None])[0]
+            if page_key:
+                raw = f"https://www.coupang.com/vp/products/{page_key}"
+                if item_id:
+                    raw += f"?itemId={item_id}"
+                short = _shorten(raw, access, secret, sub_id)
         return {
             "name": top.get("productName", keyword),
             "price": top.get("productPrice"),
-            "url": top.get("productUrl"),
+            "url": short or url,
         }
     except requests.RequestException:
         return None

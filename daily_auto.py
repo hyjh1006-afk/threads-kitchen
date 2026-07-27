@@ -46,6 +46,16 @@ def main() -> int:
         log("소재 은행 소진 — menus.json에 메뉴를 보충하세요 (실패로 처리)")
         return 1
 
+    def fit_500(text: str) -> str:
+        """스레드 글자수 한도(500자) 가드 — 초과 시 마지막 링크 줄부터 덜어낸다.
+
+        실측: 첫 게시에서 원본 딥링크(300자+)로 답글이 500 에러. 단축링크로
+        해결했지만, 레시피가 길어질 때를 대비한 최종 안전장치.
+        """
+        while len(text) > 500 and "\n🛒" in text:
+            text = text[:text.rfind("\n🛒")].rstrip()
+        return text[:500]
+
     log(f"오늘의 메뉴: {menu['name']} ({menu['id']})")
     image_url = ensure_image(menu)
     body = with_ad_tag(menu["body"])
@@ -59,7 +69,7 @@ def main() -> int:
     delay = int(CONFIG["posting"].get("reply_delay_seconds", 45))
     time.sleep(delay)
     log("답글 게시…")
-    reply_id = threads_client.post(reply_text, reply_to_id=body_id)
+    reply_id = threads_client.post(fit_500(reply_text), reply_to_id=body_id)
     log(f"  게시됨: {reply_id}")
 
     mark_used(menu["id"])

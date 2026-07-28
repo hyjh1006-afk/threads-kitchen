@@ -16,6 +16,7 @@ import time
 from datetime import date
 from pathlib import Path
 
+import reviewer
 import threads_client
 from make_draft import CONFIG, build_reply, ensure_images, pick_menu, with_ad_tag
 from post_approved import mark_used, record
@@ -79,6 +80,12 @@ def main() -> int:
     reply_text, links_text, links = build_reply(menu, include_missing=False)
     ok_links = [l["label"] for l in links if l.get("url")]
     log(f"이미지: {len(image_urls)}장 / 주제: {topic or '없음'} / 링크: {ok_links or '없음'}")
+
+    ok, why = reviewer.gate(today, menu["id"], body, reply_text, links_text,
+                            image_urls, CONFIG["disclosure"])
+    log(f"감독관 게이트: {'통과' if ok else '차단'} — {why}")
+    if not ok:
+        return 1  # Actions 빨간불 → 사옥 감시망이 잡음. 오늘 게시는 건너뜀
 
     log("본문 게시…")
     body_id = threads_client.post(body, image_urls=image_urls or None, topic_tag=topic)

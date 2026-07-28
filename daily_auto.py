@@ -57,6 +57,13 @@ def main() -> int:
         log(f"API 상태 확인 오류({str(e)[:60]}) — 오늘 게시 건너뜀")
         return 0
 
+    # 봇 패턴 완화 (2026-07-29, 차단 사건 재발 방지):
+    # ① 게시 시각 지터 — 러너 지연 위에 0~35분 랜덤을 더해 시각 패턴을 흐린다
+    import random
+    jitter = random.randint(0, 2100)
+    log(f"지터 대기 {jitter // 60}분 — 게시 시각 랜덤화")
+    time.sleep(jitter)
+
     vetoes = fetch_vetoes()
     if vetoes:
         log(f"폰 반려 목록: {sorted(vetoes)} — 건너뜀")
@@ -96,6 +103,10 @@ def main() -> int:
     body = with_ad_tag(menu["body"])
     topic = pick_topic()
     reply_text, links_text, links = build_reply(menu, include_missing=False)
+    # ② 링크 없는 날 섞기 — 3일에 1일꼴로 답글2(쿠팡 링크)를 생략해 제휴 발자국을 줄인다
+    if links_text and random.random() < float(CONFIG.get("link_skip_ratio", 0.33)):
+        log("오늘은 링크 없는 날 — 답글2 생략 (봇 패턴 완화)")
+        links_text = None
     ok_links = [l["label"] for l in links if l.get("url")]
     log(f"이미지: {len(image_urls)}장 / 주제: {topic or '없음'} / 링크: {ok_links or '없음'}")
 

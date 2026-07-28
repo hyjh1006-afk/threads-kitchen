@@ -42,6 +42,21 @@ def main() -> int:
         log(f"{today} 이미 게시됨 — 하루 1개 원칙으로 종료")
         return 0
 
+    # API 상태 확인 (2026-07-28 메타 차단 사건 이후): 차단 중이면 조용히 건너뛰고,
+    # 풀리는 날 자동으로 게시가 재개된다. 확인은 가벼운 읽기 1회뿐.
+    import requests
+    uid, token = threads_client.credentials()
+    try:
+        r = requests.get(f"https://graph.threads.net/v1.0/{uid}",
+                         params={"fields": "id", "access_token": token}, timeout=30)
+        if not r.ok:
+            msg = r.json().get("error", {}).get("message", r.status_code)
+            log(f"API 상태 확인 실패({msg}) — 오늘 게시 건너뜀 (차단 해제되면 자동 재개)")
+            return 0
+    except Exception as e:
+        log(f"API 상태 확인 오류({str(e)[:60]}) — 오늘 게시 건너뜀")
+        return 0
+
     vetoes = fetch_vetoes()
     if vetoes:
         log(f"폰 반려 목록: {sorted(vetoes)} — 건너뜀")

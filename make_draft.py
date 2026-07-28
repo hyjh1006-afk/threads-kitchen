@@ -18,14 +18,27 @@ CONFIG = json.loads((BASE / "config.json").read_text(encoding="utf-8"))
 MENUS_PATH = BASE / "menus.json"
 
 
-def pick_menu(menu_id: str | None = None) -> dict | None:
+def pick_menu(menu_id: str | None = None, skip_ids: set[str] | None = None) -> dict | None:
+    """다음 메뉴 선택. skip_ids = 사용자가 폰(클라우드 랩)에서 반려한 메뉴들."""
     data = json.loads(MENUS_PATH.read_text(encoding="utf-8"))
     for m in data["menus"]:
         if menu_id and m["id"] == menu_id:
             return m
-        if not menu_id and not m.get("used"):
+        if not menu_id and not m.get("used") and m["id"] not in (skip_ids or set()):
             return m
     return None
+
+
+def fetch_vetoes() -> set[str]:
+    """클라우드 랩의 반려 목록 (폰 승인 게이트). 실패 시 빈 set — fail-open."""
+    import requests
+    try:
+        r = requests.get("https://lab-cloud.pages.dev/api/vetoes", timeout=10)
+        if r.ok:
+            return set(r.json().get("menu_ids", []))
+    except Exception:
+        pass
+    return set()
 
 
 def with_ad_tag(body: str) -> str:

@@ -18,7 +18,7 @@ from pathlib import Path
 
 import reviewer
 import threads_client
-from make_draft import CONFIG, build_reply, ensure_images, pick_menu, with_ad_tag
+from make_draft import CONFIG, build_reply, ensure_images, fetch_vetoes, pick_menu, with_ad_tag
 from post_approved import mark_used, record
 
 BASE = Path(__file__).parent
@@ -42,7 +42,10 @@ def main() -> int:
         log(f"{today} 이미 게시됨 — 하루 1개 원칙으로 종료")
         return 0
 
-    menu = pick_menu()
+    vetoes = fetch_vetoes()
+    if vetoes:
+        log(f"폰 반려 목록: {sorted(vetoes)} — 건너뜀")
+    menu = pick_menu(skip_ids=vetoes)
     if not menu:
         log("소재 은행 소진 — menus.json에 메뉴를 보충하세요 (실패로 처리)")
         return 1

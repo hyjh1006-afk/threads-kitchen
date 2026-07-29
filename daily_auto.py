@@ -38,8 +38,14 @@ def main() -> int:
         return 0
 
     today = date.today().isoformat()
-    if LAST.exists() and json.loads(LAST.read_text(encoding="utf-8")).get("date") == today:
-        log(f"{today} 이미 게시됨 — 하루 1개 원칙으로 종료")
+    per_day = int(CONFIG.get("posting", {}).get("per_day", 1))
+    posted_today = 0
+    if LAST.exists():
+        last = json.loads(LAST.read_text(encoding="utf-8"))
+        if last.get("date") == today:
+            posted_today = int(last.get("count", 1))  # 옛 형식({date,menu})은 1로 간주
+    if posted_today >= per_day:
+        log(f"{today} 이미 {posted_today}개 게시됨 — 하루 {per_day}개 상한으로 종료")
         return 0
 
     # API 상태 확인 (2026-07-28 메타 차단 사건 이후): 차단 중이면 조용히 건너뛰고,
@@ -59,10 +65,15 @@ def main() -> int:
 
     # 봇 패턴 완화 (2026-07-29, 차단 사건 재발 방지):
     # ① 게시 시각 지터 — 러너 지연 위에 0~35분 랜덤을 더해 시각 패턴을 흐린다
+    #    (파이프라인 HQ '지금 게시' 수동 버튼은 즉시성이 목적이라 지터 생략)
+    import os
     import random
-    jitter = random.randint(0, 2100)
-    log(f"지터 대기 {jitter // 60}분 — 게시 시각 랜덤화")
-    time.sleep(jitter)
+    if os.environ.get("DISPATCH_SOURCE") == "manual":
+        log("수동 실행 — 지터 생략, 바로 게시")
+    else:
+        jitter = random.randint(0, 2100)
+        log(f"지터 대기 {jitter // 60}분 — 게시 시각 랜덤화")
+        time.sleep(jitter)
 
     vetoes = fetch_vetoes()
     if vetoes:
@@ -135,7 +146,10 @@ def main() -> int:
     record({"date": today, "menu": menu["name"], "body_id": body_id,
             "reply_id": reply_id, "links_id": links_id, "mode": "auto", "links": ok_links})
     LAST.parent.mkdir(exist_ok=True)
-    LAST.write_text(json.dumps({"date": today, "menu": menu["id"]}), encoding="utf-8")
+    LAST.write_text(
+        json.dumps({"date": today, "count": posted_today + 1, "menu": menu["id"]}),
+        encoding="utf-8",
+    )
     log("완료")
     return 0
 

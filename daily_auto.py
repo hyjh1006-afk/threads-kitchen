@@ -37,7 +37,12 @@ def main() -> int:
         log("Threads 토큰 없음 — 초기 설정 전이므로 건너뜀 (README 참고)")
         return 0
 
-    today = date.today().isoformat()
+    # 날짜는 KST 고정 — 러너(UTC)의 date.today()는 한국 아침에 어제 날짜가 되어
+    # 하루 1개 잠금이 헛돈다 (7/30 크론 6연발 사건의 공범)
+    from datetime import timedelta, timezone
+    KST = timezone(timedelta(hours=9))
+    from datetime import datetime as _dt
+    today = _dt.now(KST).date().isoformat()
     per_day = int(CONFIG.get("posting", {}).get("per_day", 1))
     posted_today = 0
     if LAST.exists():
@@ -83,6 +88,22 @@ def main() -> int:
         log("소재 은행 소진 — menus.json에 메뉴를 보충하세요 (실패로 처리)")
         return 1
 
+    # 중복 게시 최종 방어선 (7/30 크론 6연발 사건): 상태 파일은 크래시·중복 크론에
+    # 취약하므로, 계정의 실제 최근 글을 읽어 오늘 이 메뉴가 이미 나갔는지 확인한다.
+    try:
+        r = requests.get(f"https://graph.threads.net/v1.0/{uid}/threads",
+                         params={"fields": "text,timestamp", "limit": 5,
+                                 "access_token": token}, timeout=30)
+        prefix = menu["body"][:20]
+        for t in r.json().get("data", []):
+            ts = _dt.fromisoformat(t["timestamp"].replace("+0000", "+00:00"))
+            if (ts.astimezone(KST).date().isoformat() == today
+                    and (t.get("text") or "").startswith(prefix)):
+                log("오늘 이 메뉴가 이미 계정에 게시돼 있음 — 중복 방지 종료 (답글 누락 시 수동 수리)")
+                return 0
+    except Exception as e:
+        log(f"(중복 확인 실패 — 계속 진행: {str(e)[:60]})")
+
     def fit_500(text: str) -> str:
         """스레드 글자수 한도(500자) 가드 — 초과 시 링크 줄부터 덜어낸다.
 
@@ -127,29 +148,49 @@ def main() -> int:
     if not ok:
         return 1  # Actions 빨간불 → 사옥 감시망이 잡음. 오늘 게시는 건너뜀
 
+    def post_retry(label: str, **kw) -> str | None:
+        """일시적 400(캐러셀 처리 지연 등) 대비 재시도 — 7/30 답글 400 사건."""
+        for attempt in (1, 2):
+            try:
+                return threads_client.post(**kw)
+            except Exception as e:
+                log(f"  {label} {attempt}차 실패: {str(e)[:80]}")
+                if attempt == 1:
+                    time.sleep(60)
+        return None
+
     log("본문 게시…")
-    body_id = threads_client.post(body, image_urls=image_urls or None, topic_tag=topic)
+    body_id = post_retry("본문", text=body, image_urls=image_urls or None, topic_tag=topic)
+    if not body_id:
+        log("본문 게시 실패 — 종료 (계정에 올라간 것 없음)")
+        return 1
     log(f"  게시됨: {body_id}")
     delay = int(CONFIG["posting"].get("reply_delay_seconds", 45))
     time.sleep(delay)
     log("답글1(레시피) 게시…")
-    reply_id = threads_client.post(fit_500(reply_text), reply_to_id=body_id)
-    log(f"  게시됨: {reply_id}")
+    reply_id = post_retry("답글1", text=fit_500(reply_text), reply_to_id=body_id)
+    log(f"  게시됨: {reply_id or '실패'}")
     links_id = None
-    if links_text:
+    if links_text and reply_id:
         time.sleep(delay)
         log("답글2(재료 링크) 게시…")
-        links_id = threads_client.post(fit_500(links_text), reply_to_id=reply_id)
-        log(f"  게시됨: {links_id}")
+        links_id = post_retry("답글2", text=fit_500(links_text), reply_to_id=reply_id)
+        log(f"  게시됨: {links_id or '실패'}")
 
+    # 답글이 실패해도 본문은 나갔으므로 상태는 반드시 커밋 — 다음 실행의 중복 게시 방지.
+    # (7/30 사건: 답글 크래시로 상태 미커밋 → 다음 크론이 같은 메뉴 재게시 시도)
     mark_used(menu["id"])
     record({"date": today, "menu": menu["name"], "body_id": body_id,
-            "reply_id": reply_id, "links_id": links_id, "mode": "auto", "links": ok_links})
+            "reply_id": reply_id, "links_id": links_id,
+            "mode": "auto" if reply_id else "auto(답글 실패 — 수리 필요)", "links": ok_links})
     LAST.parent.mkdir(exist_ok=True)
     LAST.write_text(
         json.dumps({"date": today, "count": posted_today + 1, "menu": menu["id"]}),
         encoding="utf-8",
     )
+    if not reply_id:
+        log("본문만 게시됨 — 답글 수리 필요 (빨간불로 표시)")
+        return 1
     log("완료")
     return 0
 

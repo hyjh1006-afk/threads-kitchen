@@ -88,7 +88,8 @@ jobs:
         run: python daily_auto.py
 
       - name: 상태 커밋 (menus.json used 표시 등)
-        if: steps.gate.outputs.go == 'true'
+        # always(): 게시 후 답글 단계에서 죽어도 상태는 커밋 — 다음 크론의 중복 게시 방지 (7/30 사건)
+        if: ${{ always() && steps.gate.outputs.go == 'true' }}
         run: |
           git add menus.json images state schedule.json || true
           git diff --cached --quiet || git commit -m "자동 게시 기록 $(date -u +%F)"

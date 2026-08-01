@@ -149,14 +149,19 @@ def main() -> int:
         return 1  # Actions 빨간불 → 사옥 감시망이 잡음. 오늘 게시는 건너뜀
 
     def post_retry(label: str, **kw) -> str | None:
-        """일시적 400(캐러셀 처리 지연 등) 대비 재시도 — 7/30 답글 400 사건."""
-        for attempt in (1, 2):
+        """일시적 400(캐러셀 처리 지연 등) 대비 재시도 — 7/30·8/1 답글 400 사건.
+
+        대기를 60→120→180초로 늘려가며 3회. 실측상 캐러셀 본문이 답글을 받기까지
+        수 분이 걸리는 날이 있어, 짧은 재시도만으로는 부족했다.
+        """
+        for attempt, wait in ((1, 60), (2, 120), (3, 0)):
             try:
                 return threads_client.post(**kw)
             except Exception as e:
-                log(f"  {label} {attempt}차 실패: {str(e)[:80]}")
-                if attempt == 1:
-                    time.sleep(60)
+                log(f"  {label} {attempt}차 실패: {str(e)[:160]}")
+                if wait:
+                    log(f"  {wait}초 후 재시도…")
+                    time.sleep(wait)
         return None
 
     log("본문 게시…")
@@ -167,12 +172,18 @@ def main() -> int:
     log(f"  게시됨: {body_id}")
     delay = int(CONFIG["posting"].get("reply_delay_seconds", 45))
     time.sleep(delay)
+    # 본문이 실제로 답글을 받을 수 있는 상태인지 확인 (캐러셀은 발행 후에도 처리 중)
+    if threads_client.wait_until_ready(body_id):
+        log("  본문 준비 확인됨 — 답글 진행")
+    else:
+        log("  본문 준비 확인 실패 — 그래도 답글 시도")
     log("답글1(레시피) 게시…")
     reply_id = post_retry("답글1", text=fit_500(reply_text), reply_to_id=body_id)
     log(f"  게시됨: {reply_id or '실패'}")
     links_id = None
     if links_text and reply_id:
         time.sleep(delay)
+        threads_client.wait_until_ready(reply_id, timeout_seconds=120)
         log("답글2(재료 링크) 게시…")
         links_id = post_retry("답글2", text=fit_500(links_text), reply_to_id=reply_id)
         log(f"  게시됨: {links_id or '실패'}")

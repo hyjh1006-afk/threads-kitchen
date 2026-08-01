@@ -55,7 +55,8 @@ def _create_container(uid: str, token: str, text: str,
         # 주제 태그: 포스트당 1개, 1~50자, 마침표·& 금지. 주제 팔로워에게 노출됨
         params["topic_tag"] = topic_tag.replace(".", "").replace("&", "")[:50]
     r = requests.post(f"{BASE}/{uid}/threads", data=params, timeout=30)
-    r.raise_for_status()
+    if not r.ok:
+        raise RuntimeError(f"컨테이너 생성 실패 {r.status_code}: {r.text[:200]}")
     return r.json()["id"]
 
 
@@ -70,7 +71,8 @@ def _create_carousel(uid: str, token: str, text: str, image_urls: list[str],
                           data={"access_token": token, "media_type": "IMAGE",
                                 "image_url": url, "is_carousel_item": "true"},
                           timeout=30)
-        r.raise_for_status()
+        if not r.ok:
+            raise RuntimeError(f"캐러셀 아이템 실패 {r.status_code}: {r.text[:200]}")
         children.append(r.json()["id"])
     params = {"access_token": token, "media_type": "CAROUSEL",
               "children": ",".join(children), "text": text}
@@ -79,7 +81,8 @@ def _create_carousel(uid: str, token: str, text: str, image_urls: list[str],
     if topic_tag:
         params["topic_tag"] = topic_tag.replace(".", "").replace("&", "")[:50]
     r = requests.post(f"{BASE}/{uid}/threads", data=params, timeout=30)
-    r.raise_for_status()
+    if not r.ok:
+        raise RuntimeError(f"컨테이너 생성 실패 {r.status_code}: {r.text[:200]}")
     return r.json()["id"]
 
 
@@ -90,8 +93,35 @@ def _publish(uid: str, token: str, container_id: str) -> str:
         data={"access_token": token, "creation_id": container_id},
         timeout=30,
     )
-    r.raise_for_status()
+    if not r.ok:  # API의 실제 사유를 로그에 남긴다 (raise_for_status는 본문을 버림)
+        raise RuntimeError(f"발행 실패 {r.status_code}: {r.text[:200]}")
     return r.json()["id"]
+
+
+def wait_until_ready(post_id: str, timeout_seconds: int = 300) -> bool:
+    """게시물이 답글을 받을 수 있는 상태가 될 때까지 대기.
+
+    캐러셀은 발행 직후 ID가 나와도 내부 처리가 끝나지 않아 그 글에 답글을 달면
+    400이 난다(2026-07-30·08-01 실측, 45초 대기로는 부족한 날이 있었음).
+    조회가 성공할 때까지 폴링해서 '진짜 준비됨'을 확인한다.
+    """
+    import requests
+    creds = credentials()
+    if not creds:
+        return False
+    _, token = creds
+    waited = 0
+    while waited < timeout_seconds:
+        try:
+            r = requests.get(f"{BASE}/{post_id}",
+                             params={"fields": "id", "access_token": token}, timeout=20)
+            if r.ok:
+                return True
+        except Exception:
+            pass
+        time.sleep(15)
+        waited += 15
+    return False
 
 
 def post(text: str, image_url: str | None = None,

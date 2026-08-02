@@ -172,20 +172,34 @@ def main() -> int:
     log(f"  게시됨: {body_id}")
     delay = int(CONFIG["posting"].get("reply_delay_seconds", 45))
     time.sleep(delay)
-    # 본문이 실제로 답글을 받을 수 있는 상태인지 확인 (캐러셀은 발행 후에도 처리 중)
-    if threads_client.wait_until_ready(body_id):
-        log("  본문 준비 확인됨 — 답글 진행")
+    # 본문이 실제로 답글을 받을 수 있는 상태인지 확인 (캐러셀은 발행 후에도 처리 중).
+    # 캐러셀이면 children의 media_url까지 나와야 처리 완료로 본다.
+    if threads_client.wait_until_ready(body_id, expect_children=len(image_urls) if len(image_urls) > 1 else 0):
+        log("  본문 처리 완료 확인 — 답글 진행")
+        time.sleep(30)  # 처리 완료 직후에도 답글 연결이 불안정해 여유를 둔다
     else:
-        log("  본문 준비 확인 실패 — 그래도 답글 시도")
+        log("  본문 처리 확인 실패 — 그래도 답글 시도")
+
+    def reply_verified(label: str, text: str, parent: str) -> str | None:
+        """답글 게시 + 부모 연결 검증. 독립 글로 새어나가면 실패로 처리하고 ID를 남긴다."""
+        pid = post_retry(label, text=fit_500(text), reply_to_id=parent)
+        if not pid:
+            return None
+        time.sleep(5)
+        if threads_client.is_attached(pid, parent):
+            return pid
+        log(f"  ⚠ {label}이 부모에 안 붙고 독립 글로 발행됨 (id={pid}) — 수동 삭제 필요")
+        return None
+
     log("답글1(레시피) 게시…")
-    reply_id = post_retry("답글1", text=fit_500(reply_text), reply_to_id=body_id)
+    reply_id = reply_verified("답글1", reply_text, body_id)
     log(f"  게시됨: {reply_id or '실패'}")
     links_id = None
     if links_text and reply_id:
         time.sleep(delay)
         threads_client.wait_until_ready(reply_id, timeout_seconds=120)
         log("답글2(재료 링크) 게시…")
-        links_id = post_retry("답글2", text=fit_500(links_text), reply_to_id=reply_id)
+        links_id = reply_verified("답글2", links_text, reply_id)
         log(f"  게시됨: {links_id or '실패'}")
 
     # 답글이 실패해도 본문은 나갔으므로 상태는 반드시 커밋 — 다음 실행의 중복 게시 방지.

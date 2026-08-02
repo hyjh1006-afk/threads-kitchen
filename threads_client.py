@@ -98,30 +98,53 @@ def _publish(uid: str, token: str, container_id: str) -> str:
     return r.json()["id"]
 
 
-def wait_until_ready(post_id: str, timeout_seconds: int = 300) -> bool:
+def wait_until_ready(post_id: str, timeout_seconds: int = 300,
+                     expect_children: int = 0) -> bool:
     """게시물이 답글을 받을 수 있는 상태가 될 때까지 대기.
 
-    캐러셀은 발행 직후 ID가 나와도 내부 처리가 끝나지 않아 그 글에 답글을 달면
-    400이 난다(2026-07-30·08-01 실측, 45초 대기로는 부족한 날이 있었음).
-    조회가 성공할 때까지 폴링해서 '진짜 준비됨'을 확인한다.
+    캐러셀은 발행 직후 ID가 나와도 내부 처리가 끝나지 않는다. 이 상태에서 답글을 달면
+    ① 400 "The requested resource does not exist" 또는
+    ② 더 나쁘게, 답글 연결이 조용히 사라진 채 독립 글로 발행된다 (2026-08-02 실측).
+    그래서 id 조회만으로는 부족하고, 캐러셀이면 children의 media_url까지 나와야
+    '처리 완료'로 본다.
     """
     import requests
     creds = credentials()
     if not creds:
         return False
     _, token = creds
+    fields = "id,children{media_url}" if expect_children else "id"
     waited = 0
     while waited < timeout_seconds:
         try:
             r = requests.get(f"{BASE}/{post_id}",
-                             params={"fields": "id", "access_token": token}, timeout=20)
+                             params={"fields": fields, "access_token": token}, timeout=20)
             if r.ok:
-                return True
+                if not expect_children:
+                    return True
+                kids = (r.json().get("children") or {}).get("data", [])
+                if len(kids) >= expect_children and all(k.get("media_url") for k in kids):
+                    return True
         except Exception:
             pass
         time.sleep(15)
         waited += 15
     return False
+
+
+def is_attached(post_id: str, parent_id: str) -> bool:
+    """방금 올린 답글이 실제로 부모에 붙었는지 확인 (독립 글로 새어나갔는지 검사)."""
+    import requests
+    creds = credentials()
+    if not creds:
+        return False
+    _, token = creds
+    try:
+        r = requests.get(f"{BASE}/{post_id}",
+                         params={"fields": "replied_to", "access_token": token}, timeout=20)
+        return r.ok and (r.json().get("replied_to") or {}).get("id") == parent_id
+    except Exception:
+        return False
 
 
 def post(text: str, image_url: str | None = None,

@@ -213,6 +213,19 @@ def main() -> int:
         json.dumps({"date": today, "count": posted_today + 1, "menu": menu["id"]}),
         encoding="utf-8",
     )
+    # 클라우드 랩 보드용 게시 메모 — '의도된 생략'이 사고로 오해받지 않게 (2026-08-04 사용자 요청)
+    notes = []
+    if not links_text:
+        notes.append("링크 없는 날 (의도된 생략 — 봇 패턴 완화)" if ok_links
+                     else "링크 생성 실패로 답글2 없음")
+    if not reply_id:
+        notes.append("답글 실패 — 수리 필요")
+    (BASE / "state" / "board_notice.json").write_text(
+        json.dumps({"date": today, "menu": menu["name"],
+                    "note": " · ".join(notes) if notes else "정상 (본문+답글 전부)"},
+                   ensure_ascii=False),
+        encoding="utf-8",
+    )
     if not reply_id:
         log("본문만 게시됨 — 답글 수리 필요 (빨간불로 표시)")
         return 1

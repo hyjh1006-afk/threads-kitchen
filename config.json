@@ -16,9 +16,19 @@
   "ad_tag_in_body": false,
   "disclosure_position": "reply_bottom",
   "_고지_설명": "2026-07-27 사용자 결정: 본문 [광고] 제거, 안내문구는 답글 맨 끝. ⚠ 공정위 2026 지침(본문 상단 표기 권고, 댓글-끝부분 표기는 고지 미흡 소지)과 다른 운영임을 인지하고 선택 — 문제 시 ad_tag_in_body=true, disclosure_position=reply_top으로 즉시 복귀.",
-  "topic_tags": ["집밥", "요리", "레시피", "자취요리", "오늘뭐먹지", "다이어트식단", "혼밥"],
+  "topic_tags": [
+    "집밥",
+    "요리",
+    "레시피",
+    "자취요리",
+    "오늘뭐먹지",
+    "다이어트식단",
+    "혼밥"
+  ],
   "_주제_설명": "게시마다 하나씩 로테이션(포스트당 1개 제한). 스레드 앱에서 팔로워 많은 주제를 확인해 자유롭게 교체 가능.",
   "image_base_url": "https://raw.githubusercontent.com/hyjh1006-afk/threads-kitchen/main/images",
   "_image_설명": "이미지 공개 호스팅 주소. 저장소 생성 후 유효해짐. 비우면 텍스트만 게시.",
-  "coupang_subid": "threads_kitchen"
+  "coupang_subid": "threads_kitchen",
+  "link_skip_ratio": 0.14,
+  "_link_skip_ratio_설명": "링크 없는 날 확률 (사용자 결정 2026-08-04: 7일에 1일꼴 — 봇 패턴 완화와 수익 노출의 균형)"
 }

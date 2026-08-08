@@ -270,6 +270,222 @@
       ],
       "image_prompt": "Stack of golden banana oat pancakes with greek yogurt dollop and peanut butter drizzle, banana slices on top, morning coffee beside, realistic smartphone food photo, bright cozy morning light",
       "used": false
+    },
+    {
+      "id": "m16",
+      "name": "두부면 들기름 막국수",
+      "body": "여름에 국수 삶기 싫어서 안 먹는 사람\n두부면 한 번 써봐\n\n끓일 필요 없이 찬물에 헹구기만 하면 끝\n면 삶는 5분이 통째로 사라져\n\n들기름이랑 간장 베이스로 비비면\n메밀 막국수랑 결이 꽤 비슷해져\n\n밀가루면보다 가벼운 편이라\n야식으로 먹어도 부담이 덜해\n\n양념 비율이랑 안 싱거워지는 요령\n답글에 적어둠 👇",
+      "recipe": "두부면 들기름 막국수 (1인분)\n\n[재료]\n두부면 1봉(100g)\n들기름 1스푼, 진간장 1스푼\n식초 1스푼, 알룰로스 반스푼\n김가루·깨 넉넉히, 오이채 조금\n\n[순서]\n1. 두부면은 찬물에 30초 헹구고 체에 탈탈 ★물기 남으면 싱거워짐\n2. 양념은 그릇에서 먼저 섞기 — 면에 바로 부으면 안 섞임\n3. 면 넣고 30번 비비기\n4. 김가루·깨·오이채 올려 마무리\n\n★ 들기름은 마지막에 반 스푼 더 — 향이 살아있음\n★ 그릇째 냉동실에 5분 넣었다 먹으면 훨씬 나음",
+      "ingredients": [
+        {
+          "label": "두부면",
+          "search": "두부면"
+        },
+        {
+          "label": "들기름",
+          "search": "국산 들기름"
+        }
+      ],
+      "image_prompt": "Cold Korean style noodles made with tofu noodles in a white bowl, glossy soy and perilla oil sauce, cucumber strips, seaweed flakes and sesame seeds on top, ice cubes beside, realistic smartphone food photo, bright summer light",
+      "used": false
+    },
+    {
+      "id": "m17",
+      "name": "닭가슴살 초계 냉국수",
+      "body": "삼계탕은 더워서 못 먹겠고\n닭은 먹고 싶은 날 있잖아\n\n초계탕을 집에서 흉내내는 방법인데\n닭을 삶을 필요가 아예 없어\n닭가슴살 통조림이면 3분이야\n\n육수는 찬물에 식초랑 겨자 푸는 게 전부\n새콤하고 시원해서 입맛 없을 때 잘 넘어가\n\n닭 삶는 시간 없이 초계 맛 내는 비율\n답글에 적어둠 👇",
+      "recipe": "3분 초계 냉국수 (1인분)\n\n[재료]\n닭가슴살 통조림 1개(물기 빼기)\n찬물 300ml + 얼음\n사과식초 2스푼, 진간장 1스푼\n연겨자 반스푼, 알룰로스 1스푼, 소금 약간\n오이·양배추 채 한 줌, 소면\n\n[순서]\n1. 찬물에 사과식초·간장·겨자·알룰로스 풀어 육수 만들기\n2. 맛보고 소금으로 간 ★신맛 먼저 잡고 소금은 나중에\n3. 소면 삶아 찬물에 빡빡 헹구기 — 전분 빼야 안 불음\n4. 그릇에 면·닭·채소 올리고 육수 붓고 얼음\n\n★ 겨자는 조금씩 늘려가며 — 한 번에 넣으면 못 먹음\n★ 육수는 미리 만들어 냉장해두면 더 시원함",
+      "ingredients": [
+        {
+          "label": "닭가슴살통조림",
+          "search": "닭가슴살 통조림"
+        },
+        {
+          "label": "사과식초",
+          "search": "사과식초"
+        }
+      ],
+      "image_prompt": "Korean cold chicken noodle soup chogye guksu in a white bowl, shredded chicken breast, cucumber and cabbage strips, clear icy broth with ice cubes, sesame seeds, realistic smartphone food photo, bright summer light",
+      "used": false
+    },
+    {
+      "id": "m18",
+      "name": "서리태 콩국수",
+      "body": "콩국수 사 먹으면 만 원인데\n집에서 안 하는 이유는 콩 갈기가 귀찮아서지\n\n서리태를 한 번 삶아서 얼려두면\n그 다음부터는 믹서에 30초면 끝이야\n\n삶은 콩을 1인분씩 소분해 냉동하는 게 핵심\n먹고 싶을 때 얼린 채로 갈면\n얼음을 안 넣어도 시원해\n\n껍질 안 벗기고도 안 텁텁하게 하는 법\n답글에 적어둠 👇",
+      "recipe": "서리태 콩국수 (2인분)\n\n[재료]\n서리태 1컵, 물 500ml\n통밀소면 2인분\n소금 반 스푼, 볶은깨 2스푼\n오이채·방울토마토 약간\n\n[순서]\n1. 서리태는 6시간 이상 물에 불리기\n2. 끓는 물에 12분만 삶기 ★오래 삶으면 비린내가 남\n3. 찬물에 헹구고 물 500ml·깨와 함께 믹서 1분\n4. 1인분씩 나눠 냉동 — 먹을 땐 반해동해서 한 번 더 갈기\n5. 통밀소면 삶아 찬물에 헹구고 콩물 붓기\n\n★ 깨를 같이 갈면 껍질째 갈아도 안 텁텁함\n★ 소금은 먹기 직전에 — 미리 넣으면 물이 생김",
+      "ingredients": [
+        {
+          "label": "서리태",
+          "search": "국산 서리태"
+        },
+        {
+          "label": "통밀소면",
+          "search": "통밀 소면"
+        }
+      ],
+      "image_prompt": "Korean cold soybean noodle soup kongguksu in a white bowl, creamy beige black-soybean broth, thin noodles, cucumber strips and cherry tomato on top, sesame seeds, realistic smartphone food photo, cool bright light",
+      "used": false
+    },
+    {
+      "id": "m19",
+      "name": "렌틸 볼로네제",
+      "body": "고기 없이 볼로네제가 되냐고?\n렌틸콩이 다진 고기 흉내를 꽤 잘 내\n\n렌틸은 불릴 필요도 없고\n토마토 소스에 그냥 넣고 끓이면\n15분 만에 알아서 퍼지면서 걸쭉해져\n\n식감이 다진 고기랑 비슷해서\n모르고 먹으면 구분이 잘 안 되더라\n\n한 번 끓여두면 파스타·덮밥·토스트에 다 쓰니까\n비율이랑 보관법 답글에 적어둠 👇",
+      "recipe": "렌틸 볼로네제 (3~4인분)\n\n[재료]\n렌틸콩 1컵(헹구기만, 불릴 필요 없음)\n토마토 소스 1병(500g), 물 200ml\n양파 1개, 마늘 4쪽, 올리브유 2스푼\n소금·후추, 통밀파스타\n\n[순서]\n1. 양파·마늘 다져 올리브유에 5분 볶기 ★갈색 돌 때까지가 감칠맛\n2. 렌틸콩 넣고 1분 더 볶기\n3. 토마토 소스+물 붓고 뚜껑 덮어 약불 15분\n4. 눌어붙으면 물 조금씩, 소금·후추로 간\n5. 통밀파스타 삶아 비비기\n\n★ 마지막에 발사믹 반 스푼이 고기 없는 허전함을 덮어줌\n★ 남으면 냉장 4일 — 밥에 얹으면 덮밥",
+      "ingredients": [
+        {
+          "label": "렌틸콩",
+          "search": "렌틸콩 1kg"
+        },
+        {
+          "label": "통밀파스타",
+          "search": "통밀 스파게티 면"
+        }
+      ],
+      "image_prompt": "Whole wheat spaghetti topped with thick lentil bolognese sauce in a deep bowl, rich red tomato sauce with visible lentils, fresh basil leaf, fork twirling noodles, realistic smartphone food photo, warm kitchen light",
+      "used": false
+    },
+    {
+      "id": "m20",
+      "name": "애호박 감바스",
+      "body": "와인바에서 파는 감바스\n집에서 하면 재료값 3천 원이야\n\n냉동새우 한 봉이랑 마늘만 있으면 되고\n오일에 마늘 익히는 시간이 전부라\n실제로 손 대는 건 10분도 안 걸려\n\n애호박을 같이 넣는 게 포인트인데\n오일을 빨아들여서 새우보다 잘 없어져\n\n기름 안 튀게 하는 순서랑 남은 오일 활용법\n답글에 적어둠 👇",
+      "recipe": "애호박 감바스 (2인분)\n\n[재료]\n냉동새우 15마리(해동 후 물기 제거)\n애호박 반 개, 마늘 10쪽\n올리브유 종이컵 반 컵\n페페론치노 3개, 소금 반 스푼\n\n[순서]\n1. 새우는 키친타월로 물기 완전히 ★이거 안 하면 기름이 튐\n2. 팬에 올리브유+편마늘, 약불 5분 (마늘이 연갈색 될 때까지)\n3. 애호박 반달썰기 넣고 3분\n4. 새우·페페론치노 넣고 3분, 소금으로 간\n\n★ 센 불로 하면 마늘이 타서 씀 — 끝까지 약불\n★ 남은 오일은 파스타나 볶음밥에 — 버리면 아까움",
+      "ingredients": [
+        {
+          "label": "냉동새우",
+          "search": "냉동 생새우살"
+        },
+        {
+          "label": "올리브유",
+          "search": "엑스트라버진 올리브유"
+        }
+      ],
+      "image_prompt": "Spanish garlic shrimp gambas in a small cast iron pan with sliced zucchini, bubbling olive oil, golden garlic slices and dried red chili, crusty bread beside, realistic smartphone food photo, warm evening light",
+      "used": false
+    },
+    {
+      "id": "m21",
+      "name": "현미 참치 주먹밥",
+      "body": "편의점 삼각김밥 사 먹느니\n이게 낫다는 거 알면서도 안 하잖아\n귀찮아서\n\n근데 현미 즉석밥이랑 참치캔이면\n5분이고 설거지도 볼 하나야\n\n주먹밥은 밥이 뜨거울 때 뭉쳐야 하는데\n즉석밥이 오히려 유리해\n\n안 부서지고 도시락 가서도 안 딱딱해지는 요령\n답글에 적어둠 👇",
+      "recipe": "현미 참치 주먹밥 (2개)\n\n[재료]\n현미즉석밥 1개\n참치캔 1개(기름 꽉 짜기)\n마요네즈 1스푼, 진간장 반 스푼\n김가루 2스푼, 참기름 반 스푼, 깨\n\n[순서]\n1. 즉석밥 데워 볼에 붓고 참기름·깨·소금 섞기\n2. 참치는 기름 완전히 빼고 마요+간장에 비비기 ★기름 남으면 뭉쳐도 흐트러짐\n3. 밥 반 → 참치 속 → 밥 반 순서로 랩에 올려 동그랗게\n4. 랩째로 5분 두면 모양이 잡힘\n5. 김가루에 굴리기\n\n★ 도시락은 완전히 식힌 뒤 뚜껑 — 김 서리면 눅눅해짐\n★ 현미밥이 식어도 덜 딱딱해서 도시락에 유리함",
+      "ingredients": [
+        {
+          "label": "현미즉석밥",
+          "search": "현미 즉석밥"
+        },
+        {
+          "label": "참치캔",
+          "search": "참치캔 살코기"
+        }
+      ],
+      "image_prompt": "Two Korean tuna rice balls jumeokbap made with brown rice, rolled in seaweed flakes, cut in half showing tuna mayo filling, lunch box container beside, realistic smartphone food photo, bright natural light",
+      "used": false
+    },
+    {
+      "id": "m22",
+      "name": "들깨 버섯 수프",
+      "body": "크림수프 먹고 싶은데\n생크림 한 통 사기는 부담스러운 날 있잖아\n\n들깨가루로 하면 결이 비슷해져\n우유도 생크림도 없이\n들깨가 풀리면서 걸쭉하고 고소해지거든\n\n말린 표고를 불린 물까지 그대로 쓰면\n버섯 향이 국물에 다 배어서\n따로 육수를 낼 필요가 없어\n\n걸쭉해지는 비율이랑 안 뭉치게 푸는 법\n답글에 적어둠 👇",
+      "recipe": "들깨 버섯 수프 (2인분)\n\n[재료]\n건표고버섯 5개 + 불린 물 400ml\n들깨가루 4스푼\n양파 반 개, 들기름 1스푼\n국간장 1스푼, 소금 약간\n\n[순서]\n1. 건표고버섯을 미지근한 물 400ml에 20분 불리기 ★불린 물 버리지 말 것 = 육수\n2. 불린 표고 채 썰어 양파와 함께 들기름에 3분 볶기\n3. 불린 물 붓고 5분 끓이기\n4. 들깨가루는 찬물 3스푼에 미리 개어서 넣기 ★바로 넣으면 뭉침\n5. 약불 3분, 국간장·소금으로 간\n\n★ 밥 말면 들깨 버섯 죽이 됨\n★ 더 걸쭉하게는 들깨가루 1스푼씩 추가",
+      "ingredients": [
+        {
+          "label": "건표고버섯",
+          "search": "건표고버섯 슬라이스"
+        },
+        {
+          "label": "들깨가루",
+          "search": "국산 들깨가루"
+        }
+      ],
+      "image_prompt": "Creamy Korean perilla seed mushroom soup in a white bowl, thick beige broth with sliced shiitake mushrooms and onion, steam rising, spoon resting on the rim, realistic smartphone food photo, cozy warm light",
+      "used": false
+    },
+    {
+      "id": "m23",
+      "name": "두부 유부초밥",
+      "body": "유부초밥 세트 사면 밥만 있으면 되잖아\n근데 밥 대신 두부를 넣어봤어\n\n두부를 으깨서 물기만 꽉 짜면\n식감이 밥이랑 생각보다 비슷해\n\n세트에 든 단촛물이랑 후리카케가\n두부 특유의 밍밍함을 잡아줘서\n두부 싫어하는 사람도 모르고 먹더라\n\n물기 빼는 게 9할이라\n그 방법까지 답글에 적어둠 👇",
+      "recipe": "두부 유부초밥 (8개)\n\n[재료]\n유부초밥세트 1개(유부+단촛물+후리카케)\n부침용 두부 1모\n검은깨 1스푼, 참기름 반 스푼\n\n[순서]\n1. 두부는 칼등으로 으깨 면포나 키친타월에 싸기\n2. 물이 안 나올 때까지 꽉 짜기 ★여기서 대충하면 다 흐트러짐\n3. 마른 팬에 두부만 3분 볶아 남은 수분 날리기\n4. 한 김 식힌 뒤 단촛물+후리카케+참기름 섞기\n5. 유부에 눌러 담고 검은깨 뿌리기\n\n★ 따뜻할 때 단촛물을 넣어야 잘 배어\n★ 냉장 하루 지나도 안 딱딱해서 도시락에 좋음",
+      "ingredients": [
+        {
+          "label": "유부초밥세트",
+          "search": "유부초밥 세트"
+        },
+        {
+          "label": "검은깨",
+          "search": "볶은 검은깨"
+        }
+      ],
+      "image_prompt": "Japanese inari sushi pouches filled with crumbled tofu instead of rice, arranged on a wooden plate, black sesame sprinkled on top, one cut in half showing texture, realistic smartphone food photo, soft natural light",
+      "used": false
+    },
+    {
+      "id": "m24",
+      "name": "전자레인지 계란찜",
+      "body": "계란찜 하려고 뚝배기 꺼내기 싫어서 안 하지\n전자레인지로 3분이면 돼\n\n근데 그냥 돌리면 넘치거나\n스펀지처럼 퍽퍽해지잖아\n물 비율이랑 돌리는 방식만 지키면\n식당에서 나오는 그 몽글한 게 나와\n\n계란 2개로 한 그릇 나와서\n반찬 없을 때 진짜 자주 하게 됨\n\n비율이랑 안 넘치게 하는 법 답글에 적어둠 👇",
+      "recipe": "전자레인지 계란찜 (1그릇)\n\n[재료]\n계란 2개, 물 100ml ★계란 1개당 50ml, 이 비율이 전부\n새우젓 반 스푼(다져서) 또는 소금 한 꼬집\n대파 조금, 참기름 몇 방울\n\n[순서]\n1. 계란 풀고 물·새우젓 섞어 체에 한 번 거르기 ★거르면 몽글해짐\n2. 전자레인지찜기에 붓고 뚜껑은 살짝 열어두기\n3. 700W 1분 30초 → 꺼내서 젓가락으로 휘휘 젓기\n4. 다시 1분 → 또 젓기 → 30초\n5. 대파·참기름 올리기\n\n★ 한 번에 3분 돌리면 넘치거나 퍽퍽해짐 — 나눠 돌리고 저어주는 게 핵심\n★ 새우젓이 소금보다 감칠맛이 남",
+      "ingredients": [
+        {
+          "label": "새우젓",
+          "search": "새우젓"
+        },
+        {
+          "label": "전자레인지찜기",
+          "search": "전자레인지 계란찜기"
+        }
+      ],
+      "image_prompt": "Fluffy Korean steamed egg gyeranjjim in a small ceramic bowl, silky wobbly custard surface, chopped scallion and sesame oil on top, microwave steamer beside, realistic smartphone food photo, warm kitchen light",
+      "used": false
+    },
+    {
+      "id": "m25",
+      "name": "냉동베리 스무디볼",
+      "body": "아침에 뭘 씹기도 싫은 날 있잖아\n그렇다고 굶으면 점심에 폭식하고\n\n냉동 블루베리랑 프로틴 파우더\n두 개만 있으면 3분이야\n\n얼린 과일을 우유 조금만 넣고 갈면\n마시는 농도가 아니라 떠먹는 농도로 나와서\n숟가락으로 천천히 먹게 돼\n\n물처럼 안 묽어지는 비율\n답글에 적어둠 👇",
+      "recipe": "냉동베리 스무디볼 (1인분)\n\n[재료]\n냉동블루베리 1컵(150g)\n냉동 바나나 반 개\n프로틴파우더 1스쿱\n우유나 두유 80ml ★이보다 많으면 마시는 농도가 됨\n토핑: 오트밀, 견과, 베리 몇 알\n\n[순서]\n1. 냉동 과일을 먼저 믹서에 넣기\n2. 프로틴파우더 넣고 우유는 80ml만\n3. 30초 갈고 멈춰서 주걱으로 내려주기 ★안 갈릴 땐 액체 말고 주걱으로 해결\n4. 다시 20초 — 숟가락이 설 정도면 완성\n5. 그릇에 담고 토핑 올리기\n\n★ 바나나는 껍질 까서 얼릴 것 — 얼면 안 까짐\n★ 단맛 부족하면 알룰로스 반 스푼",
+      "ingredients": [
+        {
+          "label": "냉동블루베리",
+          "search": "냉동 블루베리"
+        },
+        {
+          "label": "프로틴파우더",
+          "search": "웨이 프로틴 파우더"
+        }
+      ],
+      "image_prompt": "Thick purple berry smoothie bowl topped with granola, sliced banana, blueberries and nuts, spoon standing upright in the thick texture, white bowl on wooden table, realistic smartphone food photo, bright morning light",
+      "used": false
+    },
+    {
+      "id": "m26",
+      "name": "오이 미역 냉국",
+      "body": "입맛 없을 때 냉국만 한 게 없는데\n식초 넣는 타이밍 하나로 맛이 갈려\n\n미역 불리는 데 5분,\n나머지는 다 섞기만 하면 끝이야\n\n육수를 낼 필요도 없고\n간장이랑 식초 비율만 맞으면\n그냥 찬물이 국이 돼\n\n밥 말아도 되고 소면 말아도 되고\n비율 답글에 적어둠 👇",
+      "recipe": "오이 미역 냉국 (2인분)\n\n[재료]\n자른미역 한 줌(3g)\n오이 1개, 양파 4분의 1\n찬물 500ml + 얼음\n국간장 1스푼, 식초 2스푼, 설탕 1스푼\n다진마늘 반 스푼, 깨\n\n[순서]\n1. 자른미역은 찬물에 5분 불리고 두세 번 헹구기 ★헹궈야 짠맛·비린내가 빠짐\n2. 오이·양파는 얇게 채 썰어 찬물에 5분 담그기\n3. 찬물 500ml에 국간장·식초·설탕·마늘 풀기\n4. 맛보고 조절 — 신맛 먼저, 단맛 나중\n5. 미역·오이 넣고 얼음, 깨\n\n★ 식초는 마지막에 — 미리 넣고 오래 두면 미역이 물러짐\n★ 냉장 2시간 두면 훨씬 시원함",
+      "ingredients": [
+        {
+          "label": "자른미역",
+          "search": "자른 미역"
+        },
+        {
+          "label": "국간장",
+          "search": "국간장"
+        }
+      ],
+      "image_prompt": "Korean chilled seaweed and cucumber soup oi miyeok naengguk in a glass bowl, clear icy broth with ice cubes, thin cucumber strips and rehydrated seaweed, sesame seeds floating, realistic smartphone food photo, bright cool light",
+      "used": false
+    },
+    {
+      "id": "m27",
+      "name": "오븐 없는 오트밀 바",
+      "body": "군것질 끊으려다 실패하는 이유\n대체할 게 없어서야\n\n오븐 없이 냉장고만 있으면 되는\n오트밀 바를 만들어두면 그게 좀 해결돼\n\n오트밀이랑 땅콩버터를 뭉쳐서\n냉장고에 한 시간 두면 굳어\n굽지도 않고 반죽도 아니야\n\n한 판 만들면 8조각 나와서\n일주일 간식이 정리됨\n\n안 부서지게 뭉치는 비율 답글에 적어둠 👇",
+      "recipe": "오븐 없는 오트밀 바 (8조각)\n\n[재료]\n오트밀 2컵\n땅콩버터 4스푼, 꿀이나 알룰로스 4스푼\n아몬드분태 반 컵\n건크랜베리 반 컵\n소금 한 꼬집\n\n[순서]\n1. 땅콩버터+꿀을 전자레인지 30초 — 묽어져야 잘 섞임\n2. 오트밀·아몬드분태·건크랜베리·소금 넣고 주걱으로 치대기\n3. 안 뭉쳐지면 땅콩버터 1스푼씩 추가 ★물은 넣지 말 것\n4. 유산지 깐 틀에 붓고 숟가락 뒤로 꾹꾹 누르기 — 눌러야 안 부서짐\n5. 냉장 1시간 뒤 8조각으로 자르기\n\n★ 개별로 랩에 싸두면 들고 나가기 좋음\n★ 냉장 보관 2주",
+      "ingredients": [
+        {
+          "label": "아몬드분태",
+          "search": "아몬드 분태"
+        },
+        {
+          "label": "건크랜베리",
+          "search": "건크랜베리"
+        }
+      ],
+      "image_prompt": "Homemade no-bake oat bars cut into rectangles on parchment paper, visible oats, chopped almonds and dried cranberries, one bar stacked on top showing texture, realistic smartphone food photo, warm natural light",
+      "used": false
     }
   ]
 }

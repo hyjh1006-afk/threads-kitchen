@@ -23,10 +23,51 @@ from post_approved import mark_used, record
 
 BASE = Path(__file__).parent
 LAST = BASE / "state" / "last_auto.json"
+REPLAY_PROGRESS = BASE / "state" / "replay_progress.json"
 
 
 def log(msg: str):
     print(f"[auto] {msg}")
+
+
+def replay_progress() -> dict:
+    if not REPLAY_PROGRESS.exists():
+        return {"account": CONFIG.get("target_threads_username", ""), "completed": []}
+    try:
+        data = json.loads(REPLAY_PROGRESS.read_text(encoding="utf-8"))
+        if data.get("account") != CONFIG.get("target_threads_username", ""):
+            return {"account": CONFIG.get("target_threads_username", ""), "completed": []}
+        return data
+    except Exception:
+        return {"account": CONFIG.get("target_threads_username", ""), "completed": []}
+
+
+def select_menu(skip_ids: set[str]) -> tuple[dict | None, bool]:
+    """과거 게시물 재생이 남았으면 날짜순 메뉴, 끝났으면 새 메뉴를 선택한다."""
+    replay = CONFIG.get("replay_old_posts") or {}
+    if replay.get("enabled"):
+        progress = replay_progress()
+        completed = set(progress.get("completed") or [])
+        for menu_id in replay.get("menu_ids") or []:
+            if menu_id not in completed:
+                menu = pick_menu(menu_id=menu_id)
+                if menu:
+                    return menu, True
+                log(f"재생 계획의 {menu_id}를 menus.json에서 찾지 못해 건너뜀")
+        log("과거 게시물 재생 완료 — 새 메뉴 은행으로 전환")
+    return pick_menu(skip_ids=skip_ids), False
+
+
+def mark_replay_posted(menu_id: str, body_id: str, today: str):
+    progress = replay_progress()
+    completed = list(progress.get("completed") or [])
+    if menu_id not in completed:
+        completed.append(menu_id)
+    progress.update({"account": CONFIG.get("target_threads_username", ""),
+                     "completed": completed, "last_date": today,
+                     "last_menu": menu_id, "last_body_id": body_id})
+    REPLAY_PROGRESS.parent.mkdir(exist_ok=True)
+    REPLAY_PROGRESS.write_text(json.dumps(progress, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 def main() -> int:
@@ -59,11 +100,17 @@ def main() -> int:
     uid, token = threads_client.credentials()
     try:
         r = requests.get(f"https://graph.threads.net/v1.0/{uid}",
-                         params={"fields": "id", "access_token": token}, timeout=30)
+                         params={"fields": "id,username", "access_token": token}, timeout=30)
         if not r.ok:
             msg = r.json().get("error", {}).get("message", r.status_code)
             log(f"API 상태 확인 실패({msg}) — 오늘 게시 건너뜀 (차단 해제되면 자동 재개)")
             return 0
+        expected = str(CONFIG.get("target_threads_username") or "").lstrip("@").lower()
+        actual = str(r.json().get("username") or "").lstrip("@").lower()
+        if expected and actual != expected:
+            log(f"계정 불일치: 설정=@{expected}, API=@{actual or '확인불가'} — 게시 중단")
+            return 0
+        log(f"게시 대상 계정 확인: @{actual}")
     except Exception as e:
         log(f"API 상태 확인 오류({str(e)[:60]}) — 오늘 게시 건너뜀")
         return 0
@@ -83,7 +130,7 @@ def main() -> int:
     vetoes = fetch_vetoes()
     if vetoes:
         log(f"폰 반려 목록: {sorted(vetoes)} — 건너뜀")
-    menu = pick_menu(skip_ids=vetoes)
+    menu, replaying = select_menu(skip_ids=vetoes)
     if not menu:
         log("소재 은행 소진 — menus.json에 메뉴를 보충하세요 (실패로 처리)")
         return 1
@@ -130,7 +177,7 @@ def main() -> int:
             posted = len(json.loads(rec.read_text(encoding="utf-8")))
         return tags[posted % len(tags)]
 
-    log(f"오늘의 메뉴: {menu['name']} ({menu['id']})")
+    log(f"오늘의 메뉴: {menu['name']} ({menu['id']}) · {'과거글 재생' if replaying else '새 메뉴'}")
     image_urls = ensure_images(menu)
     body = with_ad_tag(menu["body"])
     topic = pick_topic()
@@ -170,6 +217,9 @@ def main() -> int:
         log("본문 게시 실패 — 종료 (계정에 올라간 것 없음)")
         return 1
     log(f"  게시됨: {body_id}")
+    if replaying:
+        # 본문이 이미 나갔으므로 이후 답글 단계가 실패해도 다음 날 중복 재게시하지 않는다.
+        mark_replay_posted(menu["id"], body_id, today)
     delay = int(CONFIG["posting"].get("reply_delay_seconds", 45))
     time.sleep(delay)
     # 본문이 실제로 답글을 받을 수 있는 상태인지 확인 (캐러셀은 발행 후에도 처리 중).
@@ -205,9 +255,12 @@ def main() -> int:
     # 답글이 실패해도 본문은 나갔으므로 상태는 반드시 커밋 — 다음 실행의 중복 게시 방지.
     # (7/30 사건: 답글 크래시로 상태 미커밋 → 다음 크론이 같은 메뉴 재게시 시도)
     mark_used(menu["id"])
-    record({"date": today, "menu": menu["name"], "body_id": body_id,
+    record({"date": today, "account": CONFIG.get("target_threads_username", ""),
+            "menu": menu["name"], "menu_id": menu["id"], "body_id": body_id,
             "reply_id": reply_id, "links_id": links_id,
-            "mode": "auto" if reply_id else "auto(답글 실패 — 수리 필요)", "links": ok_links})
+            "mode": ("replay" if replaying else "auto") if reply_id else
+                    (("replay" if replaying else "auto") + "(답글 실패 — 수리 필요)"),
+            "links": ok_links})
     LAST.parent.mkdir(exist_ok=True)
     LAST.write_text(
         json.dumps({"date": today, "count": posted_today + 1, "menu": menu["id"]}),

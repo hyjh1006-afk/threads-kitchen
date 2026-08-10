@@ -4,6 +4,16 @@
     "tone": "친근한 반말, 짧은 문장, 과장 없이. 이모지는 문단당 최대 1개",
     "handle_note": "보유 스레드 계정 사용"
   },
+  "target_threads_username": "pparkzze",
+  "replay_old_posts": {
+    "enabled": true,
+    "menu_ids": [
+      "m01", "m02", "m03", "m04", "m05", "m06", "m07",
+      "m08", "m09", "m10", "m11", "m12", "m13", "m14", "m15"
+    ],
+    "after_complete": "continue_new_menus",
+    "_설명": "@diet_zze에 게시됐던 15개 메뉴를 새 @pparkzze에 날짜순으로 하루 1개 재게시. 진행 상태는 state/replay_progress.json."
+  },
   "posting": {
     "per_day": 1,
     "reply_delay_seconds": 45,

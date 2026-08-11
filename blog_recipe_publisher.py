@@ -9,6 +9,14 @@ import bluesky_client
 from recipe_publisher import affiliate_links, local_images, teaser_text
 from wordpress_com_client import WordPressClient
 
+SECTION_HEADING_STYLE = "font-size:24px;line-height:1.35;margin:2rem 0 .75rem;font-weight:700"
+
+
+def _heading(text: str) -> str:
+    """Render a compact blog subheading independent of the active theme\'s huge h2 style."""
+    return f'<h2 style="{SECTION_HEADING_STYLE}">{html.escape(text)}</h2>'
+
+
 
 def _paragraphs(items: list[str]) -> str:
     return "".join(f"<p>{html.escape(item)}</p>" for item in items if item.strip())
@@ -41,24 +49,24 @@ def build_article(menu: dict, media: list[dict], links: list[dict], disclosure: 
 
     sections = [_paragraphs(intro), gallery]
     if why:
-        sections.extend(["<h2>왜 이 방식이 편하냐면</h2>", _bullets(why)])
+        sections.extend([_heading("왜 이 방식이 편하냐면"), _bullets(why)])
     sections.extend([
-        "<h2>재료와 만드는 순서</h2>",
+        _heading("재료와 만드는 순서"),
         f'<div class="recipe-steps"><p>{_source_recipe(menu["recipe"])}</p></div>',
     ])
     if tips:
-        sections.extend(["<h2>실패를 줄이는 포인트</h2>", _bullets(tips)])
+        sections.extend([_heading("실패를 줄이는 포인트"), _bullets(tips)])
     if uses:
-        sections.extend(["<h2>이렇게 활용해도 좋아</h2>", _bullets(uses)])
+        sections.extend([_heading("이렇게 활용해도 좋아"), _bullets(uses)])
     if closing:
-        sections.extend(["<h2>마무리</h2>", f"<p>{html.escape(closing)}</p>"])
+        sections.extend([_heading("마무리"), f"<p>{html.escape(closing)}</p>"])
     if links:
         items = "".join(
             f'<li><a href="{html.escape(link["url"], quote=True)}" rel="sponsored nofollow">'
             f'{html.escape(link["label"])}</a></li>' for link in links
         )
         sections.extend([
-            "<hr><h2>사용한 재료·도구</h2>",
+            "<hr>" + _heading("사용한 재료·도구"),
             f'<p><strong>{html.escape(disclosure)}</strong></p>',
             f"<ul>{items}</ul>",
         ])

@@ -42,6 +42,8 @@ class LongFormTests(unittest.TestCase):
         self.assertIn("재료와 만드는 순서", article)
         self.assertIn("실패를 줄이는 포인트", article)
         self.assertIn("이렇게 활용해도 좋아", article)
+        self.assertIn('font-size:24px', article)
+        self.assertNotIn('<h2>왜 이 방식이 편하냐면</h2>', article)
 
 
 if __name__ == "__main__":

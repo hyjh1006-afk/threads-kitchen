@@ -2,8 +2,8 @@ name: daily-recipe-publisher
 
 on:
   schedule:
-    # 매일 11:20 KST (GitHub 무료 스케줄러 사정에 따라 지연될 수 있음)
-    - cron: "20 2 * * *"
+    # schedule.json 변경을 코드 수정 없이 반영하기 위한 15분 간격 점검
+    - cron: "4,19,34,49 * * * *"
   workflow_dispatch:
     inputs:
       menu:
@@ -24,14 +24,43 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: 시간표 확인 (놓친 시각 따라잡기)
+        id: gate
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          python3 - <<'EOF'
+          import json, os, datetime
+          now = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=9)
+          today = now.date().isoformat()
+          slot_now = f"{now.hour:02d}:{now.minute:02d}"
+          times = sorted(json.load(open("schedule.json")).get("times", [])[:6])
+          due = sum(1 for t in times if t <= slot_now)
+          posted = 0
+          try:
+              last = json.load(open("state/last_publish.json"))
+              if last.get("date") == today:
+                  posted = int(last.get("count", 1))
+          except Exception:
+              pass
+          manual = os.environ.get("EVENT") == "workflow_dispatch"
+          go = manual or due > posted
+          print(f"KST {slot_now} · times={times} · due={due} · posted={posted} · manual={manual} · go={go}")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"go={'true' if go else 'false'}\n")
+          EOF
+
       - uses: actions/setup-python@v5
+        if: steps.gate.outputs.go == 'true'
         with:
           python-version: "3.12"
 
       - name: 의존성 설치
+        if: steps.gate.outputs.go == 'true'
         run: pip install -r requirements.txt
 
       - name: WordPress 발행 + Bluesky 홍보
+        if: steps.gate.outputs.go == 'true'
         env:
           WORDPRESS_SITE: ${{ secrets.WORDPRESS_SITE }}
           WORDPRESS_ACCESS_TOKEN: ${{ secrets.WORDPRESS_ACCESS_TOKEN }}
@@ -48,8 +77,16 @@ jobs:
             python publish_daily.py
           fi
 
+      - name: 채널 실측 지표 수집
+        if: ${{ always() && steps.gate.outputs.go == 'true' }}
+        env:
+          WORDPRESS_SITE: ${{ secrets.WORDPRESS_SITE }}
+          WORDPRESS_ACCESS_TOKEN: ${{ secrets.WORDPRESS_ACCESS_TOKEN }}
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+        run: python collect_channel_metrics.py
+
       - name: 상태와 새 이미지 저장
-        if: always()
+        if: ${{ always() && steps.gate.outputs.go == 'true' }}
         run: |
           git config user.name "hyjh1006-afk"
           git config user.email "287627535+hyjh1006-afk@users.noreply.github.com"
@@ -57,4 +94,3 @@ jobs:
           git diff --cached --quiet || git commit -m "레시피 자동 발행 기록 $(date -u +%F)"
           git pull --rebase origin main || true
           git push origin main || true
-

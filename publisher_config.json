@@ -15,6 +15,7 @@
   },
   "bluesky": {
     "enabled": true,
+    "handle": "pparkzze.bsky.social",
     "_설명": "계정 연결 전에는 자동으로 건너뛰며 WordPress 발행에는 영향을 주지 않음"
   },
   "disclosure": "본 게시물은 쿠팡 파트너스 활동으로 수수료를 제공받습니다.",

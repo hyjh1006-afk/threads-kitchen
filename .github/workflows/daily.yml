@@ -1,97 +1,12 @@
-name: daily-threads-kitchen
+name: legacy-threads-disabled
 
-# schedule.json의 "times"(KST) 시각마다 글 1개를 게시한다.
-# 시간표는 파이프라인 HQ 앱에서 원격 수정 가능. 하루 상한은 config.json posting.per_day.
-
+# 2026-08-11: 기존 Threads 계정 삭제로 자동 게시를 완전히 중단했다.
+# 과거 구현은 소스에 보존하지만 이 워크플로는 게시 동작을 수행하지 않는다.
 on:
-  schedule:
-    # 백업용 15분 간격 + 혼잡 시각(:00/:30) 회피 — GitHub 스케줄러 지연 대비 따라잡기
-    - cron: "4,19,34,49 * * * *"
-  workflow_dispatch:         # 수동 버튼(기본, 즉시 게시 시도) / 외부 알람(source=cron, 시간표 검사)
-    inputs:
-      source:
-        description: "cron이면 시간표 검사를 거침 (외부 알람용)"
-        required: false
-        default: "manual"
-
-permissions:
-  contents: write           # 이미지·상태 커밋용
-
-concurrency:
-  group: daily-post
-  cancel-in-progress: false
+  workflow_dispatch:
 
 jobs:
-  post:
+  retired:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: 시간표 확인 (놓친 시각 따라잡기)
-        id: gate
-        env:
-          EVENT: ${{ github.event_name }}
-          SOURCE: ${{ inputs.source }}
-        run: |
-          python3 - <<'EOF'
-          import json, os, datetime
-          now = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=9)
-          today = now.date().isoformat()
-          slot_now = f"{now.hour:02d}:{now.minute:02d}"
-
-          times = sorted(json.load(open("schedule.json")).get("times", [])[:2])
-          due = sum(1 for t in times if t <= slot_now)
-
-          posted_today = 0
-          try:
-              last = json.load(open("state/last_auto.json"))
-              if last.get("date") == today:
-                  posted_today = int(last.get("count", 1))
-          except Exception:
-              pass
-
-          # 수동 버튼만 무조건 시도 (하루 상한은 daily_auto가 최종 방어),
-          # 외부 알람(source=cron)·백업 스케줄은 '지나간 시각 수 > 오늘 게시 수'일 때만
-          manual = (os.environ.get("EVENT") == "workflow_dispatch"
-                    and os.environ.get("SOURCE") != "cron")
-          go = manual or due > posted_today
-          print(f"KST {slot_now} · times={times} · due={due} · posted={posted_today} · manual={manual} · go={go}")
-          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-              f.write(f"go={'true' if go else 'false'}\n")
-              f.write(f"manual={'true' if manual else 'false'}\n")
-          EOF
-
-      - uses: actions/setup-python@v5
-        if: steps.gate.outputs.go == 'true'
-        with:
-          python-version: "3.12"
-
-      - name: 의존성 설치
-        if: steps.gate.outputs.go == 'true'
-        run: pip install -r requirements.txt
-
-      - name: git 계정 설정 (이미지 자동 푸시용)
-        if: steps.gate.outputs.go == 'true'
-        run: |
-          git config user.name "threads-kitchen-bot"
-          git config user.email "actions@users.noreply.github.com"
-
-      - name: 자동 게시 실행
-        if: steps.gate.outputs.go == 'true'
-        env:
-          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
-          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
-          COUPANG_ACCESS_KEY: ${{ secrets.COUPANG_ACCESS_KEY }}
-          COUPANG_SECRET_KEY: ${{ secrets.COUPANG_SECRET_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          DISPATCH_SOURCE: ${{ steps.gate.outputs.manual == 'true' && 'manual' || 'auto' }}
-        run: python daily_auto.py
-
-      - name: 상태 커밋 (menus.json used 표시 등)
-        # always(): 게시 후 답글 단계에서 죽어도 상태는 커밋 — 다음 크론의 중복 게시 방지 (7/30 사건)
-        if: ${{ always() && steps.gate.outputs.go == 'true' }}
-        run: |
-          git add menus.json images state schedule.json || true
-          git diff --cached --quiet || git commit -m "자동 게시 기록 $(date -u +%F)"
-          git pull --rebase origin main || true
-          git push || true
+      - run: echo "기존 Threads 채널은 종료되었습니다. daily-recipe-publisher.yml을 사용하세요."

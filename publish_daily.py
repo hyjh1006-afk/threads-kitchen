@@ -8,7 +8,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-import recipe_publisher
+import blog_recipe_publisher as recipe_publisher
 import wordpress_com_client as wordpress_client
 
 BASE = Path(__file__).parent

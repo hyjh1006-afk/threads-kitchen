@@ -53,7 +53,7 @@ jobs:
         run: |
           git config user.name "hyjh1006-afk"
           git config user.email "287627535+hyjh1006-afk@users.noreply.github.com"
-          git add menus.json images state
+          git add menus.json images state blog_articles
           git diff --cached --quiet || git commit -m "레시피 자동 발행 기록 $(date -u +%F)"
           git pull --rebase origin main || true
           git push origin main || true

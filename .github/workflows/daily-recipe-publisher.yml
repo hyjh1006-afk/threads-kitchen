@@ -1,0 +1,61 @@
+name: daily-recipe-publisher
+
+on:
+  schedule:
+    # 매일 11:20 KST (GitHub 무료 스케줄러 사정에 따라 지연될 수 있음)
+    - cron: "20 2 * * *"
+  workflow_dispatch:
+    inputs:
+      menu:
+        description: "특정 메뉴 ID (비우면 다음 순서, 예: m01)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-recipe-publisher
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: WordPress 발행 + Bluesky 홍보
+        env:
+          WORDPRESS_SITE: ${{ secrets.WORDPRESS_SITE }}
+          WORDPRESS_USERNAME: ${{ secrets.WORDPRESS_USERNAME }}
+          WORDPRESS_APP_PASSWORD: ${{ secrets.WORDPRESS_APP_PASSWORD }}
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+          COUPANG_ACCESS_KEY: ${{ secrets.COUPANG_ACCESS_KEY }}
+          COUPANG_SECRET_KEY: ${{ secrets.COUPANG_SECRET_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          REQUESTED_MENU: ${{ inputs.menu || '' }}
+        run: |
+          if [ -n "$REQUESTED_MENU" ]; then
+            python publish_daily.py --menu "$REQUESTED_MENU"
+          else
+            python publish_daily.py
+          fi
+
+      - name: 상태와 새 이미지 저장
+        if: always()
+        run: |
+          git config user.name "hyjh1006-afk"
+          git config user.email "287627535+hyjh1006-afk@users.noreply.github.com"
+          git add menus.json images state
+          git diff --cached --quiet || git commit -m "레시피 자동 발행 기록 $(date -u +%F)"
+          git pull --rebase origin main || true
+          git push origin main || true
+

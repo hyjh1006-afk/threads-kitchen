@@ -8,7 +8,7 @@ from pathlib import Path
 import bluesky_client
 import coupang_link
 import image_gen
-from wordpress_client import WordPressClient
+from wordpress_com_client import WordPressClient
 
 BASE = Path(__file__).parent
 

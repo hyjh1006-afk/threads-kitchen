@@ -34,8 +34,7 @@ jobs:
       - name: WordPress 발행 + Bluesky 홍보
         env:
           WORDPRESS_SITE: ${{ secrets.WORDPRESS_SITE }}
-          WORDPRESS_USERNAME: ${{ secrets.WORDPRESS_USERNAME }}
-          WORDPRESS_APP_PASSWORD: ${{ secrets.WORDPRESS_APP_PASSWORD }}
+          WORDPRESS_ACCESS_TOKEN: ${{ secrets.WORDPRESS_ACCESS_TOKEN }}
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
           BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
           COUPANG_ACCESS_KEY: ${{ secrets.COUPANG_ACCESS_KEY }}

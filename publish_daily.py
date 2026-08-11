@@ -9,7 +9,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import recipe_publisher
-import wordpress_client
+import wordpress_com_client as wordpress_client
 
 BASE = Path(__file__).parent
 CONFIG = json.loads((BASE / "publisher_config.json").read_text(encoding="utf-8"))

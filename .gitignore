@@ -1,4 +1,5 @@
 .env
+.local-secrets/
 coupang_keys.txt
 drafts/
 __pycache__/

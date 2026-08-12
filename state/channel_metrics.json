@@ -1,29 +1,19 @@
 {
-  "updated_at": "2026-08-12T02:35:26.931782Z",
-  "wordpress": {
-    "site": "pparkzzekitchen.wordpress.com",
-    "name": "pparkzzekitchen",
-    "url": "https://pparkzzekitchen.wordpress.com",
-    "posts": 2,
-    "views_all": 0,
-    "views_today": 0,
-    "views_7d": 0,
-    "visitors_7d": 0,
-    "followers": 1
-  },
+  "updated_at": "2026-08-12T23:20:36.504090Z",
+  "wordpress": null,
   "bluesky": {
     "handle": "pparkzze.bsky.social",
-    "display_name": "pparkzze의 집밥",
+    "display_name": "Pparkzze Korean Kitchen",
     "url": "https://bsky.app/profile/pparkzze.bsky.social",
-    "posts": 2,
+    "posts": 6,
     "followers": 0,
     "follows": 11,
     "likes": 0,
     "reposts": 0,
-    "replies": 0,
+    "replies": 2,
     "quotes": 0,
-    "engagements": 0,
+    "engagements": 2,
     "engagement_scope": "latest_100_original_posts",
-    "latest_at": "2026-08-12T02:35:24.771758Z"
+    "latest_at": "2026-08-12T23:19:52.462012Z"
   }
 }

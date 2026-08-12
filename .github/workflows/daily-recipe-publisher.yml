@@ -59,15 +59,11 @@ jobs:
         if: steps.gate.outputs.go == 'true'
         run: pip install -r requirements.txt
 
-      - name: WordPress 발행 + Bluesky 홍보
+      - name: Bluesky 영어 레시피 스레드 발행
         if: steps.gate.outputs.go == 'true'
         env:
-          WORDPRESS_SITE: ${{ secrets.WORDPRESS_SITE }}
-          WORDPRESS_ACCESS_TOKEN: ${{ secrets.WORDPRESS_ACCESS_TOKEN }}
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
           BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
-          COUPANG_ACCESS_KEY: ${{ secrets.COUPANG_ACCESS_KEY }}
-          COUPANG_SECRET_KEY: ${{ secrets.COUPANG_SECRET_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           REQUESTED_MENU: ${{ inputs.menu || '' }}
         run: |
@@ -80,8 +76,6 @@ jobs:
       - name: 채널 실측 지표 수집
         if: ${{ always() && steps.gate.outputs.go == 'true' }}
         env:
-          WORDPRESS_SITE: ${{ secrets.WORDPRESS_SITE }}
-          WORDPRESS_ACCESS_TOKEN: ${{ secrets.WORDPRESS_ACCESS_TOKEN }}
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
         run: python collect_channel_metrics.py
 
@@ -90,7 +84,7 @@ jobs:
         run: |
           git config user.name "hyjh1006-afk"
           git config user.email "287627535+hyjh1006-afk@users.noreply.github.com"
-          git add menus.json images state blog_articles
+          git add menus.json images state bluesky_threads
           git diff --cached --quiet || git commit -m "레시피 자동 발행 기록 $(date -u +%F)"
           git pull --rebase origin main || true
           git push origin main || true

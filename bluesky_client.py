@@ -16,6 +16,10 @@ from threads_client import _load_env
 DEFAULT_SERVICE = "https://bsky.social"
 
 
+def public_url(uri: str, handle: str) -> str:
+    return f"https://bsky.app/profile/{handle}/post/{uri.rsplit('/', 1)[-1]}"
+
+
 def credentials() -> tuple[str, str] | None:
     _load_env()
     handle = os.environ.get("BLUESKY_HANDLE", "").strip(" \t\r\n\ufeff\u200b")
@@ -44,6 +48,8 @@ def _image_bytes(path: Path, max_bytes: int = 950_000) -> tuple[bytes, str]:
 
 
 def _link_facet(text: str, url: str) -> list[dict]:
+    if not url:
+        return []
     start = text.find(url)
     if start < 0:
         return []
@@ -104,8 +110,9 @@ class BlueskyClient:
             raise RuntimeError(f"Bluesky 이미지 업로드 실패 {response.status_code}: {response.text[:200]}")
         return response.json()["blob"]
 
-    def post(self, text: str, *, link: str, images: list[Path] | None = None,
-             alt_text: str = "") -> dict:
+    def post(self, text: str, *, link: str = "", images: list[Path] | None = None,
+             alt_text: str = "", reply_root: dict | None = None,
+             reply_parent: dict | None = None) -> dict:
         if not self.token:
             self.login()
         if len(text) > 300:
@@ -118,6 +125,11 @@ class BlueskyClient:
         facets = _link_facet(text, link)
         if facets:
             record["facets"] = facets
+        if reply_root and reply_parent:
+            record["reply"] = {
+                "root": {"uri": reply_root["uri"], "cid": reply_root["cid"]},
+                "parent": {"uri": reply_parent["uri"], "cid": reply_parent["cid"]},
+            }
         if images:
             embedded = [
                 {"alt": alt_text[:1000], "image": self.upload_image(path)}
@@ -131,4 +143,68 @@ class BlueskyClient:
         )
         if not response.ok:
             raise RuntimeError(f"Bluesky 게시 실패 {response.status_code}: {response.text[:200]}")
+        return response.json()
+
+    def delete_post(self, uri: str) -> None:
+        if not self.token:
+            self.login()
+        response = self._xrpc(
+            "POST", "com.atproto.repo.deleteRecord",
+            json={
+                "repo": self.did,
+                "collection": "app.bsky.feed.post",
+                "rkey": uri.rsplit("/", 1)[-1],
+            },
+        )
+        if not response.ok:
+            raise RuntimeError(f"Bluesky delete failed {response.status_code}: {response.text[:200]}")
+
+    def post_thread(self, texts: list[str], *, images: list[Path] | None = None,
+                    alt_text: str = "") -> dict:
+        if len(texts) != 3:
+            raise ValueError("A recipe thread must contain exactly three posts.")
+        created: list[dict] = []
+        try:
+            root = self.post(texts[0], images=images, alt_text=alt_text)
+            created.append(root)
+            first_reply = self.post(texts[1], reply_root=root, reply_parent=root)
+            created.append(first_reply)
+            second_reply = self.post(texts[2], reply_root=root, reply_parent=first_reply)
+            created.append(second_reply)
+            return {"root": root, "replies": [first_reply, second_reply]}
+        except Exception:
+            for post in reversed(created):
+                try:
+                    self.delete_post(post["uri"])
+                except Exception:
+                    pass
+            raise
+
+    def update_profile(self, *, display_name: str, description: str) -> dict:
+        if not self.token:
+            self.login()
+        current = self._xrpc(
+            "GET", "com.atproto.repo.getRecord",
+            params={
+                "repo": self.did,
+                "collection": "app.bsky.actor.profile",
+                "rkey": "self",
+            },
+        )
+        if not current.ok:
+            raise RuntimeError(f"Bluesky profile read failed {current.status_code}: {current.text[:200]}")
+        record = current.json()["value"]
+        record["displayName"] = display_name
+        record["description"] = description
+        response = self._xrpc(
+            "POST", "com.atproto.repo.putRecord",
+            json={
+                "repo": self.did,
+                "collection": "app.bsky.actor.profile",
+                "rkey": "self",
+                "record": record,
+            },
+        )
+        if not response.ok:
+            raise RuntimeError(f"Bluesky profile update failed {response.status_code}: {response.text[:200]}")
         return response.json()

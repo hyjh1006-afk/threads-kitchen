@@ -38,14 +38,11 @@ class FakeSession:
 
 
 class ChannelMetricsTests(unittest.TestCase):
-    @patch("collect_channel_metrics.wordpress_com_client.credentials", return_value=("kitchen.example", "token"))
-    def test_collects_only_reported_platform_metrics(self, _credentials):
+    def test_collects_only_reported_platform_metrics(self):
         with patch.dict(os.environ, {"BLUESKY_HANDLE": "cook.bsky.social"}, clear=False):
             result = collect_channel_metrics.collect(FakeSession())
 
-        self.assertEqual(result["wordpress"]["posts"], 2)
-        self.assertEqual(result["wordpress"]["views_all"], 12)
-        self.assertEqual(result["wordpress"]["views_7d"], 7)
+        self.assertIsNone(result["wordpress"])
         self.assertEqual(result["bluesky"]["posts"], 3)
         self.assertEqual(result["bluesky"]["engagements"], 7)
 

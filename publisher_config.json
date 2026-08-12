@@ -1,5 +1,5 @@
 {
-  "_설명": "WordPress 레시피 블로그 + Bluesky 홍보 자동화. 비밀값은 .env/GitHub Secrets에만 저장.",
+  "_설명": "Bluesky 영어 집밥 레시피 스레드 자동화. 비밀값은 .env/GitHub Secrets에만 저장.",
   "auto_post": true,
   "posting": {
     "per_day": 1,
@@ -16,9 +16,7 @@
   "bluesky": {
     "enabled": true,
     "handle": "pparkzze.bsky.social",
-    "_설명": "계정 연결 전에는 자동으로 건너뛰며 WordPress 발행에는 영향을 주지 않음"
-  },
-  "disclosure": "본 게시물은 쿠팡 파트너스 활동으로 수수료를 제공받습니다.",
-  "coupang_subid": "recipe_blog"
+    "language": "en",
+    "format": "root_plus_two_replies"
+  }
 }
-

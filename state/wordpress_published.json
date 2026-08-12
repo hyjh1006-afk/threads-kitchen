@@ -18,5 +18,23 @@
     ],
     "bluesky_uri": null,
     "bluesky_error": null
+  },
+  {
+    "date": "2026-08-12",
+    "menu": "김치볶음밥 순서",
+    "menu_id": "m02",
+    "wordpress_id": "16",
+    "url": "https://pparkzzekitchen.wordpress.com/2026/08/12/home-recipe-m02/",
+    "already_existed": false,
+    "images": [
+      "m02.png"
+    ],
+    "links": [
+      "참기름",
+      "볶음팬"
+    ],
+    "long_form": false,
+    "bluesky_uri": "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3msu3sdbkf425",
+    "bluesky_error": null
   }
 ]

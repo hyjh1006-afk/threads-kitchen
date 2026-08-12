@@ -8,7 +8,7 @@
     "bluesky_cid": "bafyreihghr5pl53zqfivrhiuign3yznmeh655bgyw4sjeryrfprueogyje",
     "reply_uris": [
       "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mswb52ukb522",
-      "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mswb52zjg62n"
+      "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mswcaq5rwp2e"
     ],
     "images": [
       "m01_1.png",
@@ -16,7 +16,11 @@
       "m01_3.png",
       "m01_4.png"
     ],
-    "language": "en"
+    "language": "en",
+    "affiliate": {
+      "label": "멸치가루",
+      "url": "https://link.coupang.com/a/gaxwmKo0S4"
+    }
   },
   {
     "date": "2026-08-13",
@@ -27,11 +31,15 @@
     "bluesky_cid": "bafyreicdwdxybz4jungylzqa2afns6kl56wltays6ebnnt3ln674sg7i34",
     "reply_uris": [
       "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mswbdpz65t2g",
-      "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mswbdq7fh324"
+      "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mswcarmtue2y"
     ],
     "images": [
       "m02.png"
     ],
-    "language": "en"
+    "language": "en",
+    "affiliate": {
+      "label": "참기름",
+      "url": "https://link.coupang.com/a/gaxwwCobka"
+    }
   }
 ]

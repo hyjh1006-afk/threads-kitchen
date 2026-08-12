@@ -14,13 +14,15 @@ The previous Threads account was deleted on 2026-08-11. WordPress and Threads ar
 
 ```text
 Choose next recipe → create and validate English copy → prepare food images
-→ publish photo root post → publish recipe reply → publish method/tip reply
+→ generate one relevant Coupang affiliate link → publish photo root post
+→ publish recipe reply → publish method/tip reply with disclosure and affiliate link
 → save verified publishing state and public channel metrics
 ```
 
 - The root post is an appetizing hook with up to four images.
 - Reply 1 contains ingredients and ratios.
-- Reply 2 contains the cooking method and the key practical tip.
+- Reply 2 contains the cooking method, key practical tip, affiliate disclosure, and one relevant Coupang link.
+- A missing/long affiliate link or missing disclosure blocks the whole publish attempt instead of silently posting an unmonetized thread.
 - Every post is checked against Bluesky's 300-character limit.
 - Generated copy is rejected if it introduces a number not present in the Korean source.
 - `m01`–`m15` are replayed first, one recipe per day, followed by unused recipes.
@@ -31,6 +33,8 @@ Choose next recipe → create and validate English copy → prepare food images
 ```text
 BLUESKY_HANDLE
 BLUESKY_APP_PASSWORD
+COUPANG_ACCESS_KEY
+COUPANG_SECRET_KEY
 GEMINI_API_KEY
 ```
 

@@ -16,6 +16,7 @@ CACHE_DIR = BASE / "bluesky_threads"
 MODEL = "gemini-2.5-flash"
 API = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 FIELDS = ("main", "reply1", "reply2", "alt_text")
+MAX_METHOD_CHARS = 165  # Leave room for the required affiliate disclosure and URL.
 
 
 def _extract_json(text: str) -> dict | None:
@@ -35,6 +36,8 @@ def _valid(data: dict | None, source: str) -> bool:
         return False
     posts = [data["main"].strip(), data["reply1"].strip(), data["reply2"].strip()]
     if any(not text or len(text) > 300 for text in posts):
+        return False
+    if len(posts[2]) > MAX_METHOD_CHARS:
         return False
     joined = " ".join(posts)
     if re.search(r"[가-힣]", joined) or "http://" in joined or "https://" in joined:
@@ -59,7 +62,7 @@ Rules:
 - Each of main, reply1, and reply2 must be no more than 300 characters including spaces.
 - main: an appetizing hook and what makes the dish useful. Do not say 'thread' or mention AI.
 - reply1: ingredients and ratios, using compact line breaks or bullets.
-- reply2: cooking method and the most useful source-grounded tip.
+- reply2: cooking method and the most useful source-grounded tip. Keep it to no more than {MAX_METHOD_CHARS} characters so a required affiliate disclosure can be appended later.
 - Use clear global English. Briefly explain Korean ingredients when helpful.
 - Do not invent ingredients, quantities, temperatures, times, storage claims, experiences, or health benefits.
 - Preserve every important quantity exactly. Do not include any URL.

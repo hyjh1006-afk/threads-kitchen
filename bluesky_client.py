@@ -159,17 +159,40 @@ class BlueskyClient:
         if not response.ok:
             raise RuntimeError(f"Bluesky delete failed {response.status_code}: {response.text[:200]}")
 
+    def get_post(self, uri: str) -> dict:
+        """Return the current strong reference for an AT URI."""
+        if not self.token:
+            self.login()
+        parts = uri.split("/")
+        if len(parts) < 5 or not uri.startswith("at://"):
+            raise ValueError(f"Invalid AT URI: {uri}")
+        response = self._xrpc(
+            "GET", "com.atproto.repo.getRecord",
+            params={"repo": parts[2], "collection": parts[3], "rkey": parts[4]},
+        )
+        if not response.ok:
+            raise RuntimeError(f"Bluesky post read failed {response.status_code}: {response.text[:200]}")
+        data = response.json()
+        return {"uri": data["uri"], "cid": data["cid"]}
+
     def post_thread(self, texts: list[str], *, images: list[Path] | None = None,
-                    alt_text: str = "") -> dict:
+                    alt_text: str = "", links: list[str] | None = None) -> dict:
         if len(texts) != 3:
             raise ValueError("A recipe thread must contain exactly three posts.")
+        links = links or ["", "", ""]
+        if len(links) != 3:
+            raise ValueError("links must contain exactly three entries.")
         created: list[dict] = []
         try:
-            root = self.post(texts[0], images=images, alt_text=alt_text)
+            root = self.post(texts[0], link=links[0], images=images, alt_text=alt_text)
             created.append(root)
-            first_reply = self.post(texts[1], reply_root=root, reply_parent=root)
+            first_reply = self.post(
+                texts[1], link=links[1], reply_root=root, reply_parent=root,
+            )
             created.append(first_reply)
-            second_reply = self.post(texts[2], reply_root=root, reply_parent=first_reply)
+            second_reply = self.post(
+                texts[2], link=links[2], reply_root=root, reply_parent=first_reply,
+            )
             created.append(second_reply)
             return {"root": root, "replies": [first_reply, second_reply]}
         except Exception:

@@ -18,5 +18,12 @@
     "handle": "pparkzze.bsky.social",
     "language": "en",
     "format": "root_plus_two_replies"
+  },
+  "affiliate": {
+    "required": true,
+    "sub_id": "bluesky_recipe",
+    "disclosure": "Affiliate disclosure: I may earn a commission from this Coupang link.",
+    "placement": "reply_2_bottom",
+    "links_per_recipe": 1
   }
 }

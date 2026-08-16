@@ -3,7 +3,9 @@
   "auto_post": true,
   "posting": {
     "per_day": 1,
-    "time_kst": "11:20"
+    "time_kst": "11:20",
+    "max_attempts_per_day": 3,
+    "_max_attempts_설명": "하루 재시도 상한. 15분 크론이 하루 종일 재시도하며 Gemini 무료 한도(모델·프로젝트당 20회/일)를 스스로 태워 8/14~8/16 3일간 발행이 멈춘 사고 이후 추가."
   },
   "replay_old_posts": {
     "enabled": true,

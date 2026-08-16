@@ -29,7 +29,9 @@ def monetized_reply(method_text: str, offer: dict, config: dict) -> str:
     disclosure = str(affiliate.get("disclosure") or "").strip()
     if not disclosure:
         raise RuntimeError("Affiliate disclosure is missing from publisher_config.json.")
-    text = f"{method_text.strip()}\n\n{disclosure}\n🛒 Featured ingredient: {offer['url']}"
+    # 라벨은 🛒 하나로 충분하다. 'Featured ingredient: ' 21자는 순수 장식인데,
+    # 그만큼 조리법 문구의 한도를 깎아 생성 실패의 주원인이 됐다 (2026-08-16).
+    text = f"{method_text.strip()}\n\n{disclosure}\n🛒 {offer['url']}"
     if len(text) > 300:
         raise RuntimeError(f"Monetized Bluesky reply is too long ({len(text)}/300).")
     return text

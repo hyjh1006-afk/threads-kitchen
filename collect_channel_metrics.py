@@ -78,11 +78,28 @@ def collect(session: requests.Session | None = None) -> dict:
     }
 
 
+def _payload(data: dict | None) -> dict:
+    """updated_at을 뺀 실제 지표만 — 변화 판정용."""
+    return {key: value for key, value in (data or {}).items() if key != "updated_at"}
+
+
 def main() -> int:
     data = collect()
     OUTPUT.parent.mkdir(exist_ok=True)
-    OUTPUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    previous = None
+    if OUTPUT.exists():
+        try:
+            previous = json.loads(OUTPUT.read_text(encoding="utf-8"))
+        except ValueError:
+            previous = None
     bsky = data["bluesky"]
+    # 지표가 그대로면 파일을 건드리지 않는다. 타임스탬프만 바뀐 파일이 15분마다
+    # "레시피 자동 발행 기록" 커밋으로 쌓여, 3일간 발행이 멈춘 걸 정상으로
+    # 오해하게 만든 사고(8/14~8/16)를 원천 차단한다.
+    if previous is not None and _payload(previous) == _payload(data):
+        print(f"metrics unchanged: Bluesky {bsky['posts']} posts/{bsky['engagements']} engagements")
+        return 0
+    OUTPUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"metrics saved: Bluesky {bsky['posts']} posts/{bsky['engagements']} engagements")
     return 0
 

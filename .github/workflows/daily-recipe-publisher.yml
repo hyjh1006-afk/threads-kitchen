@@ -21,6 +21,11 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      # 상태 파일·커밋 메시지가 전부 한국어다. 로케일이 UTF-8이 아닌 환경에서
+      # open()과 print가 터져 게이트나 커밋이 조용히 죽는 것을 막는다.
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: utf-8
     steps:
       - uses: actions/checkout@v4
 
@@ -43,9 +48,27 @@ jobs:
                   posted = int(last.get("count", 1))
           except Exception:
               pass
+
+          # 오늘 실패 횟수 — 상한에 걸리면 러너를 아예 띄우지 않는다.
+          # (실패해도 게이트가 계속 열려 하루 종일 재시도하며 Gemini 일일 쿼터를
+          #  스스로 태워버린 8/14~8/16 사고 재발 방지)
+          tried, cap = 0, 3
+          try:
+              cfg = json.load(open("publisher_config.json")).get("posting", {})
+              cap = int(cfg.get("max_attempts_per_day", 3))
+          except Exception:
+              pass
+          try:
+              attempts = json.load(open("state/publish_attempts.json"))
+              if attempts.get("date") == today:
+                  tried = int(attempts.get("attempts", 0))
+          except Exception:
+              pass
+
           manual = os.environ.get("EVENT") == "workflow_dispatch"
-          go = manual or due > posted
-          print(f"KST {slot_now} · times={times} · due={due} · posted={posted} · manual={manual} · go={go}")
+          go = manual or (due > posted and tried < cap)
+          print(f"KST {slot_now} · times={times} · due={due} · posted={posted} · "
+                f"failed_today={tried}/{cap} · manual={manual} · go={go}")
           with open(os.environ["GITHUB_OUTPUT"], "a") as f:
               f.write(f"go={'true' if go else 'false'}\n")
           EOF
@@ -86,7 +109,31 @@ jobs:
         run: |
           git config user.name "hyjh1006-afk"
           git config user.email "287627535+hyjh1006-afk@users.noreply.github.com"
+          # 커밋 메시지는 실제로 발행됐는지에 따라 갈린다 — 실패한 실행이
+          # "발행 기록"으로 남아 3일간 정상으로 오해된 사고(8/14~8/16) 재발 방지
+          MESSAGE=$(python3 - <<'EOF'
+          import datetime, json
+          today = (datetime.datetime.now(datetime.timezone.utc)
+                   + datetime.timedelta(hours=9)).date().isoformat()
+          published = False
+          try:
+              published = json.load(open("state/last_publish.json")).get("date") == today
+          except Exception:
+              pass
+          if published:
+              print(f"레시피 자동 발행 기록 {today}")
+          else:
+              note = ""
+              try:
+                  state = json.load(open("state/publish_attempts.json"))
+                  if state.get("date") == today:
+                      note = f" ({state.get('attempts')}회차: {str(state.get('last_error'))[:80]})"
+              except Exception:
+                  pass
+              print(f"[실패] 발행 안 됨 — 게시 없음 {today}{note}")
+          EOF
+          )
           git add menus.json images state bluesky_threads
-          git diff --cached --quiet || git commit -m "레시피 자동 발행 기록 $(date -u +%F)"
+          git diff --cached --quiet || git commit -m "${MESSAGE:-발행 상태 기록 $(date -u +%F)}"
           git pull --rebase origin main || true
           git push origin main || true

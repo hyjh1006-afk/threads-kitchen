@@ -28,6 +28,27 @@ Choose next recipe → create and validate English copy → prepare food images
 - `m01`–`m15` are replayed first, one recipe per day, followed by unused recipes.
 - If a reply fails, posts created during that attempt are rolled back to avoid leaving a broken thread.
 
+## Gemini quota and the copy cache
+
+The free Gemini tier allows **20 requests per day per model per project**, so English copy is
+never generated on the publishing path when it can be avoided:
+
+- `prefetch-threads.yml` runs daily at 17:10 KST — just after the quota resets at Pacific
+  midnight — and caches up to 6 upcoming recipes into `bluesky_threads/`.
+- A cached recipe publishes with **zero** Gemini calls. Cache builds at 6/day against a
+  consumption of 1/day, so it stays ahead.
+- `publish_daily.py` stops after `posting.max_attempts_per_day` failures (default 3) and
+  records them in `state/publish_attempts.json`.
+
+This replaces the 2026-08-14 failure mode, where a 15-minute retry loop regenerated copy on
+every run, burned the daily quota within an hour, and blocked publishing for three days while
+committing "published" messages that hid the outage.
+
+```powershell
+python prefetch_threads.py --dry-run     # what still needs copy, no API calls
+python prefetch_threads.py --max-calls 6
+```
+
 ## Required GitHub Actions Secrets
 
 ```text
@@ -52,6 +73,7 @@ Bluesky does not expose ordinary post view counts, so the project does not estim
 ## Main files
 
 - `publish_daily.py` — daily publishing entry point
+- `prefetch_threads.py` — build the English copy cache ahead of publishing
 - `bluesky_thread_content.py` — grounded English thread generation and cache
 - `bluesky_thread_publisher.py` — photo root + two replies
 - `bluesky_client.py` — AT Protocol publishing client

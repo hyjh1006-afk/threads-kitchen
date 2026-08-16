@@ -1,0 +1,58 @@
+name: prefetch-recipe-threads
+
+# 앞으로 발행될 레시피의 영어 스레드를 미리 만들어 캐시에 커밋한다.
+# 매일의 발행이 Gemini를 호출하지 않게 만들어, 무료 일일 한도(20회)와
+# 발행을 완전히 분리하는 것이 목적이다 (8/14~8/16 쿼터 자폭 사고 대응).
+#
+# 매일 17:10 KST — 무료 한도는 태평양 자정(=KST 16~17시)에 초기화되므로 리셋 직후에
+# 소량씩 채운다. 하루 6건 생성 vs 하루 1건 소비라 캐시가 계속 앞서 나가고,
+# 발행 시각(11:20 KST)과 쿼터 창이 겹치지 않는다.
+
+on:
+  schedule:
+    - cron: "10 8 * * *"     # 08:10 UTC = 17:10 KST
+  workflow_dispatch:
+    inputs:
+      max_calls:
+        description: "이번 실행에서 쓸 Gemini 호출 상한"
+        required: false
+        default: "6"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-recipe-publisher    # 발행 워크플로와 동시 실행 금지 (쿼터 충돌 방지)
+  cancel-in-progress: false
+
+jobs:
+  prefetch:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 영어 스레드 사전 생성
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          MAX_CALLS: ${{ inputs.max_calls || '6' }}
+        run: python prefetch_threads.py --max-calls "$MAX_CALLS"
+
+      - name: 캐시 커밋
+        if: ${{ always() }}
+        run: |
+          git config user.name "hyjh1006-afk"
+          git config user.email "287627535+hyjh1006-afk@users.noreply.github.com"
+          git add bluesky_threads
+          git diff --cached --quiet || git commit -m "영어 스레드 사전 생성 $(date -u +%F)"
+          git pull --rebase origin main || true
+          git push origin main || true

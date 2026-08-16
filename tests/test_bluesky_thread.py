@@ -89,6 +89,35 @@ class BlueskyThreadTests(unittest.TestCase):
         self.assertIn(url, text)
         self.assertLessEqual(len(text), 300)
 
+    def test_longest_allowed_method_still_fits_with_footer(self):
+        """MAX_METHOD_CHARS가 실제 푸터 길이와 어긋나면 발행이 통째로 막힌다."""
+        base = Path(__file__).resolve().parents[1]
+        config = json.loads((base / "publisher_config.json").read_text(encoding="utf-8"))
+        text = bluesky_thread_publisher.monetized_reply(
+            "x" * bluesky_thread_content.MAX_METHOD_CHARS,
+            {"label": "test", "url": "https://link.coupang.com/a/gaxwmKo0S4"},
+            config,
+        )
+        self.assertLessEqual(len(text), 300)
+
+    def test_overlong_method_is_trimmed_at_sentence_boundary(self):
+        trimmed = bluesky_thread_content._trim_to_limit(
+            "Fry the kimchi first. Then add the rice. " + "Extra detail. " * 20,
+            bluesky_thread_content.MAX_METHOD_CHARS,
+        )
+        self.assertLessEqual(len(trimmed), bluesky_thread_content.MAX_METHOD_CHARS)
+        self.assertTrue(trimmed.startswith("Fry the kimchi first."))
+        self.assertTrue(trimmed.endswith("."))
+
+    def test_korean_fractions_are_not_treated_as_invented_numbers(self):
+        data = {
+            "main": "A quick side dish.",
+            "reply1": "Use 0.5 spoon of sesame oil.",
+            "reply2": "Mix and serve.",
+            "alt_text": "A side dish",
+        }
+        self.assertIsNone(bluesky_thread_content._invalid_reason(data, "참기름 반 스푼"))
+
     def test_method_copy_reserves_room_for_affiliate_footer(self):
         data = {
             "main": "A useful dinner.",

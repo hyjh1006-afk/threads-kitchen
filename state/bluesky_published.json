@@ -41,5 +41,28 @@
       "label": "참기름",
       "url": "https://link.coupang.com/a/gaxwwCobka"
     }
+  },
+  {
+    "date": "2026-08-16",
+    "menu": "오트밀 김치전",
+    "menu_id": "m03",
+    "url": "https://bsky.app/profile/pparkzze.bsky.social/post/3mt7577hjff2e",
+    "bluesky_uri": "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mt7577hjff2e",
+    "bluesky_cid": "bafyreie5ynlsaffbxh6sclggnbzyirmwzef4oqcpp3ppglooqjmqgszbt4",
+    "reply_uris": [
+      "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mt7577zdq324",
+      "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mt757a2qky2g"
+    ],
+    "images": [
+      "m03_1.png",
+      "m03_2.png",
+      "m03_3.png",
+      "m03_4.png"
+    ],
+    "language": "en",
+    "affiliate": {
+      "label": "오트밀",
+      "url": "https://link.coupang.com/a/ggnm9zF34C"
+    }
   }
 ]

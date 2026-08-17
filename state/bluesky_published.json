@@ -64,5 +64,28 @@
       "label": "오트밀",
       "url": "https://link.coupang.com/a/ggnm9zF34C"
     }
+  },
+  {
+    "date": "2026-08-17",
+    "menu": "두유 로제 곤약떡볶이",
+    "menu_id": "m04",
+    "url": "https://bsky.app/profile/pparkzze.bsky.social/post/3mtaolqykk52y",
+    "bluesky_uri": "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mtaolqykk52y",
+    "bluesky_cid": "bafyreig5vsm7m6zsriycrw3v4gtradtl2brqm52mz77iwrmpfmpuqmr4mi",
+    "reply_uris": [
+      "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mtaolrv6c424",
+      "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mtaolrx7gh2n"
+    ],
+    "images": [
+      "m04_1.png",
+      "m04_2.png",
+      "m04_3.png",
+      "m04_4.png"
+    ],
+    "language": "en",
+    "affiliate": {
+      "label": "곤약떡",
+      "url": "https://link.coupang.com/a/ghoxj6Ex3c"
+    }
   }
 ]

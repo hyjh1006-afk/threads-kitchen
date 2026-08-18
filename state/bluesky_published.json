@@ -87,5 +87,28 @@
       "label": "곤약떡",
       "url": "https://link.coupang.com/a/ghoxj6Ex3c"
     }
+  },
+  {
+    "date": "2026-08-18",
+    "menu": "병아리콩 토마토 카레",
+    "menu_id": "m05",
+    "url": "https://bsky.app/profile/pparkzze.bsky.social/post/3mtd6xznxmm24",
+    "bluesky_uri": "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mtd6xznxmm24",
+    "bluesky_cid": "bafyreiejxxi5wydc4waj232tnfvqgn3rohljyb6urwts3pgmtxn5tixcqq",
+    "reply_uris": [
+      "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mtd6y2b75p2e",
+      "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mtd6y2dbqn2n"
+    ],
+    "images": [
+      "m05_1.png",
+      "m05_2.png",
+      "m05_3.png",
+      "m05_4.png"
+    ],
+    "language": "en",
+    "affiliate": {
+      "label": "병아리콩",
+      "url": "https://link.coupang.com/a/gi3kPD1VvM"
+    }
   }
 ]

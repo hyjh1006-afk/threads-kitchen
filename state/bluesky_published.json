@@ -110,5 +110,28 @@
       "label": "병아리콩",
       "url": "https://link.coupang.com/a/gi3kPD1VvM"
     }
+  },
+  {
+    "date": "2026-08-19",
+    "menu": "그릭요거트 콥샐러드 랩",
+    "menu_id": "m06",
+    "url": "https://bsky.app/profile/pparkzze.bsky.social/post/3mtfpkr26732t",
+    "bluesky_uri": "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mtfpkr26732t",
+    "bluesky_cid": "bafyreidsli4biodr2nxvhay3royfaznhvg6pejhjgkijrfinilauutktru",
+    "reply_uris": [
+      "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mtfpkrnccg2w",
+      "at://did:plc:eusjnqujdgzshe64gex4z5e7/app.bsky.feed.post/3mtfpkroppr2b"
+    ],
+    "images": [
+      "m06_1.png",
+      "m06_2.png",
+      "m06_3.png",
+      "m06_4.png"
+    ],
+    "language": "en",
+    "affiliate": {
+      "label": "그릭요거트",
+      "url": "https://link.coupang.com/a/gkIoi1QYOi"
+    }
   }
 ]
